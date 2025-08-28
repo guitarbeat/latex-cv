@@ -10,30 +10,23 @@
 \else
   \usepackage{fontspec}
   \defaultfontfeatures{Ligatures=TeX}
-  % Prefer Calibri if available; otherwise force Carlito (Calibri-compatible)
-  \IfFontExistsTF{Calibri}{%
-    \setmainfont{Calibri}%
-    \IfFontExistsTF{Calibri Light}{\newfontfamily\HeadingFace{Calibri Light}}{\newfontfamily\HeadingFace{Calibri}}%
-  }{%
-    % Use Carlito by explicit file names from user fonts
-    \setmainfont[
-      Path = /Users/aaron/Library/Fonts/,
-      UprightFont = *-Regular.ttf,
-      BoldFont = *-Bold.ttf,
-      ItalicFont = *-Italic.ttf,
-      BoldItalicFont = *-BoldItalic.ttf
-    ]{Carlito}
-    \newfontfamily\HeadingFace[
-      Path = /Users/aaron/Library/Fonts/,
-      UprightFont = *-Regular.ttf,
-      BoldFont = *-Bold.ttf
-    ]{Carlito}
+  % Prefer Calibri body; fall back to Arial, then TeX Gyre Heros (Helvetica-like)
+  \IfFontExistsTF{Calibri}{\setmainfont{Calibri}[Scale=MatchLowercase]}{%
+    \IfFontExistsTF{Arial}{\setmainfont{Arial}[Scale=MatchLowercase]}{\setmainfont{TeX Gyre Heros}[Scale=MatchLowercase]}%
+  }
+  % Headings and UI use Helvetica (fallback Arial, then TeX Gyre Heros)
+  \IfFontExistsTF{Helvetica}{\newfontfamily\SansHead{Helvetica}[BoldFont=Helvetica-Bold, ItalicFont=Helvetica-Oblique]}{%
+    \IfFontExistsTF{Arial}{\newfontfamily\SansHead{Arial}[BoldFont=Arial-BoldMT, ItalicFont=Arial-ItalicMT]}{\newfontfamily\SansHead{TeX Gyre Heros}}%
   }
 \fi
 \usepackage{hyperref}
 \usepackage{enumitem}
 \usepackage{array}
 \usepackage{setspace}
+\usepackage{newunicodechar}
+
+% Map hard hyphen (U+2010) to ASCII hyphen to avoid missing glyphs
+\newunicodechar{‐}{-}
 
 % 
 
@@ -55,6 +48,7 @@
 \fancyfoot[R]{\small A.L. Woods, \thepage}
 
 % Section heading formatting
+\setstretch{1.15} % Word-like line spacing
 \ifPDFTeX
   \newcommand{\sectionheading}[1]{%
     \vspace{1.6ex}%
@@ -63,7 +57,7 @@
 \else
   \newcommand{\sectionheading}[1]{%
     \vspace{1.6ex}%
-    {\large\bfseries{\HeadingFace \MakeUppercase{#1}}}\par\vspace{0.8ex}%
+    {\large\bfseries{\SansHead \MakeUppercase{#1}}}\par\vspace{0.8ex}%
   }
 \fi
 

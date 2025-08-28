@@ -41,10 +41,12 @@ fi
 echo "Exporting PDFs to PNGs (200 DPI)..."
 rm -f "$ORIG_DIR"/page-*.png
 pdftoppm -png -r 200 "$ORIG_PDF" "$ORIG_DIR/page"
-pdftoppm -png -r 200 "$BUILD_DIR/latex/CV.pdf"            "$METH_DIR/latex/page"
-pdftoppm -png -r 200 "$BUILD_DIR/pandoc-classic/CV.pdf"   "$METH_DIR/pandoc-classic/page"
-pdftoppm -png -r 200 "$BUILD_DIR/pandoc-alt/CV.pdf"       "$METH_DIR/pandoc-alt/page"
-pdftoppm -png -r 200 "$BUILD_DIR/pandoc-docxlike/CV.pdf"  "$METH_DIR/pandoc-docxlike/page"
+
+# Export only if the method PDF exists
+[ -f "$BUILD_DIR/latex/CV.pdf" ] && pdftoppm -png -r 200 "$BUILD_DIR/latex/CV.pdf"            "$METH_DIR/latex/page" || true
+[ -f "$BUILD_DIR/pandoc-classic/CV.pdf" ] && pdftoppm -png -r 200 "$BUILD_DIR/pandoc-classic/CV.pdf"   "$METH_DIR/pandoc-classic/page" || true
+[ -f "$BUILD_DIR/pandoc-alt/CV.pdf" ] && pdftoppm -png -r 200 "$BUILD_DIR/pandoc-alt/CV.pdf"       "$METH_DIR/pandoc-alt/page" || true
+[ -f "$BUILD_DIR/pandoc-docxlike/CV.pdf" ] && pdftoppm -png -r 200 "$BUILD_DIR/pandoc-docxlike/CV.pdf"  "$METH_DIR/pandoc-docxlike/page" || true
 
 label_image() {
   local in="$1"; shift

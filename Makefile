@@ -5,11 +5,10 @@ LATEX_TEX=methods/latex/CV.tex
 PANDOC_META=methods/pandoc-common/cv.yaml
 PANDOC_FILTER=methods/pandoc-common/render_cv.lua
 TPL_CLASSIC=methods/pandoc-classic/template.tex
-TPL_ALT=methods/pandoc-alt/template.tex
 TPL_DOCX=methods/pandoc-docxlike/template.tex
 
 .PHONY: all
-all: latex pandoc-classic pandoc-alt pandoc-docx
+all: latex pandoc-classic pandoc-docx
 
 # LaTeX method (hand-written)
 .PHONY: latex
@@ -19,18 +18,15 @@ $(OUT)/latex:
 	mkdir -p $@
 
 $(OUT)/latex/CV.pdf: $(LATEX_TEX) | $(OUT)/latex
-	pdflatex -output-directory=$(OUT)/latex $(LATEX_TEX)
-	pdflatex -output-directory=$(OUT)/latex $(LATEX_TEX)
+	xelatex -output-directory=$(OUT)/latex $(LATEX_TEX)
+	xelatex -output-directory=$(OUT)/latex $(LATEX_TEX)
 
 # Pandoc methods
-.PHONY: pandoc-classic pandoc-alt pandoc-docx
+.PHONY: pandoc-classic pandoc-docx
 pandoc-classic: $(OUT)/pandoc-classic/CV.pdf
-pandoc-alt:     $(OUT)/pandoc-alt/CV.pdf
 pandoc-docx:    $(OUT)/pandoc-docxlike/CV.pdf
 
 $(OUT)/pandoc-classic:
-	mkdir -p $@
-$(OUT)/pandoc-alt:
 	mkdir -p $@
 $(OUT)/pandoc-docxlike:
 	mkdir -p $@
@@ -40,14 +36,6 @@ $(OUT)/pandoc-classic/CV.pdf: $(PANDOC_META) $(PANDOC_FILTER) $(TPL_CLASSIC) | $
 	  --metadata-file=$(PANDOC_META) \
 	  --lua-filter=$(PANDOC_FILTER) \
 	  --template=$(TPL_CLASSIC) \
-	  -t latex \
-	  -o $@ </dev/null
-
-$(OUT)/pandoc-alt/CV.pdf: $(PANDOC_META) $(PANDOC_FILTER) $(TPL_ALT) | $(OUT)/pandoc-alt
-	pandoc --standalone \
-	  --metadata-file=$(PANDOC_META) \
-	  --lua-filter=$(PANDOC_FILTER) \
-	  --template=$(TPL_ALT) \
 	  -t latex \
 	  -o $@ </dev/null
 
