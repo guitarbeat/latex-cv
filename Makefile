@@ -21,6 +21,11 @@ $(PDF): $(TEX) | $(OUT)
 clean:
 	rm -rf $(OUT)
 
+.PHONY: pdf_xe
+pdf_xe: $(OUT)
+	xelatex -output-directory=$(OUT) $(TEX)
+	xelatex -output-directory=$(OUT) $(TEX)
+
 .PHONY: cv_classic cv_alt compare_text
 
 cv_classic: $(CONTENT) $(FILTER) $(TEMPLATE_CLASSIC) | $(OUT)
@@ -104,3 +109,7 @@ cv_docx: $(CONTENT) $(FILTER) templates/latex_docxlike.tex | $(OUT)
 	  -t latex \
 	  --pdf-engine=xelatex \
 	  -o $(OUT)/CV_docxlike.pdf </dev/null
+
+.PHONY: compare_images
+compare_images: pdf cv_classic cv_alt cv_docx
+	./scripts/gen_comparisons.sh
