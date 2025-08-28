@@ -1,8 +1,10 @@
 build/
+experiments/**/build/
 *.aux
 *.log
 *.out
 *.toc
 *.synctex.gz
-
 *.pdf
+build/*.txt
+
