@@ -1,36 +1,54 @@
-# LaTeX CV (clean setup)
+CV Recreation (Reference vs Methods)
 
-This repo builds a single LaTeX CV from `src/CV.tex`.
+Goal: reproduce the original CV (from Microsoft Word) using LaTeX/Pandoc. The repo clearly separates the reference from each build method and provides labeled visual comparisons.
 
-## Build (default)
+Layout
 
-```sh
-make pdf
-```
+- reference/
+  - original.pdf: the ground truth PDF (from Word)
+  - original.docx: the original document (for reference)
+- methods/
+  - latex/: hand-written LaTeX attempt (CV.tex)
+  - pandoc-common/: shared metadata and filter (cv.yaml, render_cv.lua)
+  - pandoc-classic/: Pandoc template attempt (template.tex)
+  - pandoc-alt/: alternate Pandoc template attempt (template.tex)
+  - pandoc-docxlike/: Word-like Pandoc template (template.tex)
+- build/: per-method PDFs under build/<method>/CV.pdf
+- compare/: generated comparisons (PNGs)
+  - original/page-*.png: pages exported from reference/original.pdf
+  - methods/<method>/page-*.png: pages exported from each method’s PDF
+  - side/side-<page>.png: labeled montage Original | LaTeX | Classic | Alt | Docxlike
+  - diffs/<method>/diff-<page>.png: per-method pixel diffs vs original
+- scripts/: comparison generator (gen_comparisons.sh)
 
-Outputs `build/CV.pdf` using pdfLaTeX and standard LaTeX fonts.
+Prerequisites
 
-## Exact font match to the original (Calibri)
+- LaTeX (TeX Live or MiKTeX) with pdflatex and xelatex
+- Pandoc
+- Poppler (pdftoppm) and ImageMagick (convert or magick)
 
-The original DOCX/PDF uses Calibri (body) and Calibri Light (headings).
-To match that exactly:
+Build
 
-1) Install the fonts system‑wide (e.g., via Microsoft Office):
-   - Calibri.ttf (and Bold/Italic)
-   - Calibri Light.ttf
+- Build every method:
+  make all
 
-2) Build with XeLaTeX:
+Outputs:
+- build/latex/CV.pdf
+- build/pandoc-classic/CV.pdf
+- build/pandoc-alt/CV.pdf
+- build/pandoc-docxlike/CV.pdf
 
-```sh
-make pdf_xe
-```
+Compare
 
-If fonts are missing, the XeLaTeX build will fail and instruct you to install them.
+- Ensure the original is at reference/original.pdf
+- Generate comparisons (side-by-sides + diffs):
+  make compare
 
-## Clean
+Results:
+- compare/side/side-<page>.png (5-up montage)
+- compare/diffs/<method>/diff-<page>.png
 
-```sh
-make clean
-```
+Clean
 
-Removes the `build/` directory.
+  make clean
+

@@ -10,9 +10,25 @@
 \else
   \usepackage{fontspec}
   \defaultfontfeatures{Ligatures=TeX}
-  % Require Calibri and Calibri Light to match the original DOCX
-  \IfFontExistsTF{Calibri}{\setmainfont{Calibri}}{\PackageError{cv}{Required font `Calibri` not found}{Install Calibri (e.g., via Microsoft Office) in your system fonts, then run `make pdf_xe`.}}
-  \IfFontExistsTF{Calibri Light}{\newfontfamily\HeadingFace{Calibri Light}}{\PackageError{cv}{Required font `Calibri Light` not found}{Install Calibri Light in your system fonts, then run `make pdf_xe`.}}
+  % Prefer Calibri if available; otherwise force Carlito (Calibri-compatible)
+  \IfFontExistsTF{Calibri}{%
+    \setmainfont{Calibri}%
+    \IfFontExistsTF{Calibri Light}{\newfontfamily\HeadingFace{Calibri Light}}{\newfontfamily\HeadingFace{Calibri}}%
+  }{%
+    % Use Carlito by explicit file names from user fonts
+    \setmainfont[
+      Path = /Users/aaron/Library/Fonts/,
+      UprightFont = *-Regular.ttf,
+      BoldFont = *-Bold.ttf,
+      ItalicFont = *-Italic.ttf,
+      BoldItalicFont = *-BoldItalic.ttf
+    ]{Carlito}
+    \newfontfamily\HeadingFace[
+      Path = /Users/aaron/Library/Fonts/,
+      UprightFont = *-Regular.ttf,
+      BoldFont = *-Bold.ttf
+    ]{Carlito}
+  }
 \fi
 \usepackage{hyperref}
 \usepackage{enumitem}

@@ -5,11 +5,15 @@ set -euo pipefail
 # against multiple variants: src (LaTeX), classic, alt, docxlike.
 
 ROOT_DIR=$(cd "$(dirname "$0")/.." && pwd)
-IMG_DIR="$ROOT_DIR/images"
-NEW_DIR="$IMG_DIR/new"
-CMP_DIR="$IMG_DIR/compare"
+REF_DIR="$ROOT_DIR/reference"
+BUILD_DIR="$ROOT_DIR/build"
+CMP_DIR="$ROOT_DIR/compare"
+ORIG_DIR="$CMP_DIR/original"
+METH_DIR="$CMP_DIR/methods"
+SIDE_DIR="$CMP_DIR/side"
+DIFF_DIR="$CMP_DIR/diffs"
 
-mkdir -p "$NEW_DIR/src" "$NEW_DIR/classic" "$NEW_DIR/alt" "$NEW_DIR/docxlike" "$CMP_DIR"
+mkdir -p "$ORIG_DIR" "$METH_DIR/latex" "$METH_DIR/pandoc-classic" "$METH_DIR/pandoc-alt" "$METH_DIR/pandoc-docxlike" "$SIDE_DIR" "$DIFF_DIR/latex" "$DIFF_DIR/pandoc-classic" "$DIFF_DIR/pandoc-alt" "$DIFF_DIR/pandoc-docxlike"
 
 # Detect ImageMagick tools
 if command -v magick >/dev/null 2>&1; then
@@ -27,12 +31,20 @@ else
   exit 1
 fi
 
+ORIG_PDF="$REF_DIR/original.pdf"
+if [ ! -f "$ORIG_PDF" ]; then
+  echo "Missing reference/original.pdf; please add your original PDF." >&2
+  exit 1
+fi
+
 # Export PDFs to PNGs at 200 DPI
 echo "Exporting PDFs to PNGs (200 DPI)..."
-pdftoppm -png -r 200 "$ROOT_DIR/build/CV.pdf"          "$NEW_DIR/src/page"
-pdftoppm -png -r 200 "$ROOT_DIR/build/CV_classic.pdf"   "$NEW_DIR/classic/page"
-pdftoppm -png -r 200 "$ROOT_DIR/build/CV_alt.pdf"       "$NEW_DIR/alt/page"
-pdftoppm -png -r 200 "$ROOT_DIR/build/CV_docxlike.pdf"  "$NEW_DIR/docxlike/page"
+rm -f "$ORIG_DIR"/page-*.png
+pdftoppm -png -r 200 "$ORIG_PDF" "$ORIG_DIR/page"
+pdftoppm -png -r 200 "$BUILD_DIR/latex/CV.pdf"            "$METH_DIR/latex/page"
+pdftoppm -png -r 200 "$BUILD_DIR/pandoc-classic/CV.pdf"   "$METH_DIR/pandoc-classic/page"
+pdftoppm -png -r 200 "$BUILD_DIR/pandoc-alt/CV.pdf"       "$METH_DIR/pandoc-alt/page"
+pdftoppm -png -r 200 "$BUILD_DIR/pandoc-docxlike/CV.pdf"  "$METH_DIR/pandoc-docxlike/page"
 
 label_image() {
   local in="$1"; shift
@@ -51,20 +63,17 @@ title_case() {
 make_side_and_diff() {
   local page="$1"; shift
   local variant="$1"; shift
-  local left="$IMG_DIR/original/page-$page.png"
-  local right="$NEW_DIR/$variant/page-$page.png"
+  local left="$ORIG_DIR/page-$page.png"
+  local right="$METH_DIR/$variant/page-$page.png"
   local left_labeled="$CMP_DIR/_tmp_left_${variant}_${page}.png"
   local right_labeled="$CMP_DIR/_tmp_right_${variant}_${page}.png"
-  local side="$CMP_DIR/side-${page}-${variant}.png"
-  local diff="$CMP_DIR/diff-${page}-${variant}.png"
+  local diff="$DIFF_DIR/$variant/diff-${page}.png"
 
   [ -f "$left" ] || { echo "Missing original: $left" >&2; return; }
   [ -f "$right" ] || { echo "Missing variant ($variant): $right" >&2; return; }
 
   label_image "$left"  "Original"            "$left_labeled"
   label_image "$right" "$(title_case "$variant")" "$right_labeled"
-  "${CONVERT_CMD[@]}" "$left_labeled" "$right_labeled" +append "$side"
-
   if [ ${#COMPARE_CMD[@]} -gt 0 ]; then
     # Absolute error metric; ignore non-zero exit for differences
     "${COMPARE_CMD[@]}" -metric AE "$left" "$right" "$diff" 2>/dev/null || true
@@ -78,12 +87,23 @@ while IFS= read -r f; do
   b=$(basename "$f")
   n=${b#page-}; n=${n%.png}
   pages+=("$n")
-done < <(find "$IMG_DIR/original" -type f -name 'page-*.png' | sort)
+done < <(find "$ORIG_DIR" -type f -name 'page-*.png' | sort)
 
 for p in "${pages[@]}"; do
-  for v in src classic alt docxlike; do
+  for v in latex pandoc-classic pandoc-alt pandoc-docxlike; do
     make_side_and_diff "$p" "$v"
   done
+  # Build a single montage per page: include whichever variants exist
+  LBL_FILES=()
+  L1="$CMP_DIR/_tmp_L1_$p.png"; label_image "$ORIG_DIR/page-$p.png" "Original" "$L1"; LBL_FILES+=("$L1")
+  if [ -f "$METH_DIR/latex/page-$p.png" ]; then L2="$CMP_DIR/_tmp_L2_$p.png"; label_image "$METH_DIR/latex/page-$p.png" "LaTeX" "$L2"; LBL_FILES+=("$L2"); fi
+  if [ -f "$METH_DIR/pandoc-classic/page-$p.png" ]; then L3="$CMP_DIR/_tmp_L3_$p.png"; label_image "$METH_DIR/pandoc-classic/page-$p.png" "Pandoc Classic" "$L3"; LBL_FILES+=("$L3"); fi
+  if [ -f "$METH_DIR/pandoc-alt/page-$p.png" ]; then L4="$CMP_DIR/_tmp_L4_$p.png"; label_image "$METH_DIR/pandoc-alt/page-$p.png" "Pandoc Alt" "$L4"; LBL_FILES+=("$L4"); fi
+  if [ -f "$METH_DIR/pandoc-docxlike/page-$p.png" ]; then L5="$CMP_DIR/_tmp_L5_$p.png"; label_image "$METH_DIR/pandoc-docxlike/page-$p.png" "Pandoc Docxlike" "$L5"; LBL_FILES+=("$L5"); fi
+  "${CONVERT_CMD[@]}" "${LBL_FILES[@]}" +append "$SIDE_DIR/side-$p.png"
+  rm -f "${LBL_FILES[@]}"
 done
 
-echo "Done. See $CMP_DIR for side-<page>-<variant>.png and diff-<page>-<variant>.png."
+echo "Done. See:"
+echo "  - $SIDE_DIR/side-<page>.png (all methods)"
+echo "  - $DIFF_DIR/<method>/diff-<page>.png"
