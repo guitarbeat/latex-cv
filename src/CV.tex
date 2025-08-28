@@ -3,19 +3,23 @@
 % Page geometry and margins
 \usepackage[margin=1in]{geometry}
 \usepackage{fancyhdr}
-\usepackage[T1]{fontenc}
-\usepackage{lmodern}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage{lmodern}
+\else
+  \usepackage{fontspec}
+  \defaultfontfeatures{Ligatures=TeX}
+  % Require Calibri and Calibri Light to match the original DOCX
+  \IfFontExistsTF{Calibri}{\setmainfont{Calibri}}{\PackageError{cv}{Required font `Calibri` not found}{Install Calibri (e.g., via Microsoft Office) in your system fonts, then run `make pdf_xe`.}}
+  \IfFontExistsTF{Calibri Light}{\newfontfamily\HeadingFace{Calibri Light}}{\PackageError{cv}{Required font `Calibri Light` not found}{Install Calibri Light in your system fonts, then run `make pdf_xe`.}}
+\fi
 \usepackage{hyperref}
 \usepackage{enumitem}
 \usepackage{array}
 \usepackage{setspace}
-\usepackage{microtype}
-\usepackage{tabularx}
-\usepackage{ragged2e}
-\usepackage{xcolor}
 
-% TabularX ragged column
-\newcolumntype{Y}{>{\RaggedRight\arraybackslash}X}
+% 
 
 % Configure hyperlinks
 \hypersetup{
@@ -30,16 +34,22 @@
 \pagestyle{fancy}
 \fancyhf{}
 \renewcommand{\headrulewidth}{0pt}
-% Footer: simple page number centered
+% Footer: show combined name and page number on right to mirror original
 \fancyfoot{} % clear
-\fancyfoot[C]{\small \thepage}
+\fancyfoot[R]{\small A.L. Woods, \thepage}
 
 % Section heading formatting
-\newcommand{\sectionheading}[1]{%
-  \vspace{1.2ex}%
-  {\large\bfseries\textsc{#1}}\par\vspace{0.4ex}%
-  \color{gray}\rule{\linewidth}{0.5pt}\color{black}\vspace{0.6ex}%
-}
+\ifPDFTeX
+  \newcommand{\sectionheading}[1]{%
+    \vspace{1.6ex}%
+    {\large\bfseries\MakeUppercase{#1}}\par\vspace{0.8ex}%
+  }
+\else
+  \newcommand{\sectionheading}[1]{%
+    \vspace{1.6ex}%
+    {\large\bfseries{\HeadingFace \MakeUppercase{#1}}}\par\vspace{0.8ex}%
+  }
+\fi
 
 % Bullet point configuration
 \setlist[itemize]{noitemsep, topsep=0pt, leftmargin=1.5em}
@@ -50,9 +60,9 @@
 %-----------------------
 % Header
 % Name (left) and contact (right) on a single line, then address block
-\noindent\begin{tabularx}{\textwidth}{@{}Y r@{}}
-  {\Large\bfseries Aaron Lorenzo Woods} & \href{mailto:alwoods@utexas.edu}{alwoods@utexas.edu} \;|\; \href{https://aaronwoods.info}{aaronwoods.info} \\
-\end{tabularx}
+\noindent\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}l r}
+  {Aaron Lorenzo Woods} & \href{mailto:alwoods@utexas.edu}{alwoods@utexas.edu} \;|\; \href{https://aaronwoods.info}{aaronwoods.info} \\
+\end{tabular*}
 \vspace{0.6ex}
 \noindent Department of Biomedical Engineering\\
 \noindent Cockrell School of Engineering\\
@@ -68,26 +78,26 @@ Experienced and passionate researcher with a Ph.D. in Biomedical Engineering and
 \sectionheading{Education}
 
 % PhD entry
-\begin{tabularx}{\textwidth}{@{}Y r@{}}
+\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}p{0.75\textwidth}r}
   \textbf{Ph.D. Biomedical Engineering} & \textit{June 2026 (expected)}\\
-  \emph{University of Texas at Austin} & \textit{GPA: 4.0}\\
+  University of Texas at Austin & \textit{GPA: 4.0}\\
   Portfolio in Imaging Science & \\
-\end{tabularx}
+\end{tabular*}
 
 \vspace{0.8ex}
 
 % BS entry
-\begin{tabularx}{\textwidth}{@{}Y r@{}}
+\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}p{0.75\textwidth}r}
   \textbf{B.S. Engineering Leadership} & \textit{December 2020}\\
-  \emph{University of Texas at El Paso (UTEP)} & \textit{GPA: 3.46}\\
+  University of Texas at El Paso (UTEP) & \textit{GPA: 3.46}\\
   Minor in Commercial Music and Recording & \\
-\end{tabularx}
+\end{tabular*}
 
 %-----------------------
 \sectionheading{Publications}
 
 {\small
-Niemeier, R., N. Schnoor, \textbf{A.L. Woods}, and J.D. Rogers, ``Calibration of liquid crystal variable retarders using a common‐path interferometer and fit of a closed‐form expression for the retardance curve,'' published to \textit{Applied Optics}, October.\,2020.
+Niemeier, R., N. Schnoor, \textbf{A.L. Woods}, and J.D. Rogers, ``Calibration of liquid crystal variable retarders using a common-path interferometer and fit of a closed-form expression for the retardance curve,'' published to \textit{Applied Optics}, October.\,2020.
 }
 
 %-----------------------
@@ -182,14 +192,14 @@ Niemeier, R., N. Schnoor, \textbf{A.L. Woods}, and J.D. Rogers, ``Calibration of
 \textit{Department of Engineering Education and Leadership \;|\; Design Nature} \hfill Spring~2018
 \begin{itemize}
   \item Coordinated the trainings of students to use a fabrication laboratory
-  \item Taught procedures on computer‐aided design and simulation
+  \item Taught procedures on computer-aided design and simulation
   \item Directed the development process to build working prototypes
 \end{itemize}
 
 %-----------------------
 \sectionheading{Honors \& Awards}
 
-\begin{tabularx}{\textwidth}{@{}Y r@{}}
+\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}p{0.78\textwidth}r}
   \textbf{Marvin \& Ellie Selig Entrepreneurship Award}, Texas Innovation Center & 2022\\
   \multicolumn{2}{@{}l}{\;Awarded \$2,500 to advance an entrepreneur effort by developing prototypes.}\\[0.4ex]
   \textbf{Imaging Science Best Poster Award}, The University of Texas at Austin & 2022\\[0.4ex]
@@ -200,7 +210,7 @@ Niemeier, R., N. Schnoor, \textbf{A.L. Woods}, and J.D. Rogers, ``Calibration of
   \textbf{Theta Delta Lambda Education Scholarship}, University of Texas at El Paso & 2016\\[0.4ex]
   \textbf{Robert G Neill, Jr Scholarship}, University of Texas at El Paso & 2016\\[0.4ex]
   \textbf{College of Engineering Dean’s List}, University of Texas at El Paso & 2016 -- 2018\\
-\end{tabularx}
+\end{tabular*}
 
 %-----------------------
 \sectionheading{Poster Presentations}
@@ -209,14 +219,14 @@ Niemeier, R., N. Schnoor, \textbf{A.L. Woods}, and J.D. Rogers, ``Calibration of
   \item Aaron L. Woods; Andrew K. Dunn. \textit{Investigating Neurovascular Angiogenesis through Optical Imaging}. University of Texas at Austin T32 Retreat, Austin, TX, USA, May~10,~2022
   \item Arron L. Woods; Daniel Y. Chu; Michele N. Ravelli; Kelly Faltersack; Elizabeth Felton. \textit{Carnitine Deficiencies: Clinical Insights for Ketogenic Diet Therapies}. UW- Madison SURE Poster Session, Madison, WI, USA, July~31,~2019
   \item Arron L. Woods; Jeremy D. Rogers. \textit{Automated Calibration of Liquid Crystal Variable Retarder}. UW- Madison SURE Poster Session, Madison, WI, USA, July~31,~2018
-  \item ESW‐UTEP. Project Mine‐Recycler: \textit{Producing filament and 3D printed consumer goods from plastic waste}. Engineers for a Sustainable World 2019 Annual Conference Poster Session, El Paso, TX, USA, April~5,~2019
+  \item ESW-UTEP. Project Mine-Recycler: \textit{Producing filament and 3D printed consumer goods from plastic waste}. Engineers for a Sustainable World 2019 Annual Conference Poster Session, El Paso, TX, USA, April~5,~2019
 \end{itemize}
 
 %-----------------------
 \sectionheading{Academic Service}
 
 \textbf{Chairman of the Board of Directors}, ICC Austin \hfill 2022 -- Present\\
-\textit{501(c)(3) Non‐Profit \;|\; ED: Ashleigh R. Lassiter}
+\textit{501(c)(3) Non-Profit \;|\; ED: Ashleigh R. Lassiter}
 \begin{itemize}
   \item Facilitated meetings to align groups with the strategic vision and mission.
   \item Guided discussions with various stakeholders on property management.
@@ -233,23 +243,23 @@ Niemeier, R., N. Schnoor, \textbf{A.L. Woods}, and J.D. Rogers, ``Calibration of
 
 \textbf{Community Organizer}, Sunrise Movement El Paso \hfill 2020 -- 2021
 \begin{itemize}
-  \item Led local chapter of national youth‐led movement
+  \item Led local chapter of national youth-led movement
   \item Collaborated with other organizations and community leaders
   \item Educated and empowered members to act and make a positive impact
 \end{itemize}
 
 % Additional roles without bullet details
-\begin{tabularx}{\textwidth}{@{}Y r@{}}
+\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}p{0.78\textwidth}r}
   \textbf{Social Chair}, Green Team (UTEP) & 2020\\[0.4ex]
   \textbf{Webmaster}, Engineers for a Sustainable World (UTEP) & 2017 -- 2019\\[0.4ex]
   \textbf{College Recruiter}, University of Texas at El Paso & 2018\\[0.4ex]
   \textbf{Volunteer Leader}, Young Life College (UTEP) & 2016 -- 2018\\
-\end{tabularx}
+\end{tabular*}
 
 %-----------------------
 \sectionheading{Professional Experience}
 
-\textbf{Co‐founder}, Therosafe (Startup) \hfill 2021 -- Present\\
+\textbf{Co-founder}, Therosafe (Startup) \hfill 2021 -- Present\\
 In the field of theranostics, \textit{Therosafe} seeks to reduce radiation exposure for medical caregivers. My involvement is currently extensive, with an emphasis on operations and marketing.\\[0.8ex]
 
 \textbf{Senior Engineering Intern}, Thermo Fisher Scientific\\
@@ -263,13 +273,13 @@ In the field of theranostics, \textit{Therosafe} seeks to reduce radiation expos
 \end{itemize}
 
 % List of positions without descriptions
-\begin{tabularx}{\textwidth}{@{}Y r@{}}
+\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}p{0.78\textwidth}r}
   \textbf{Community Outreach Specialist}, University of Texas at El Paso & 2020\\[0.4ex]
   \textbf{Project Analyst}, University of Texas at El Paso & 2018 -- 2019\\[0.4ex]
   \textbf{Sound Engineer}, Beacon Hill Recording Studios, LLC & 2018 -- 2019\\[0.4ex]
   \textbf{Student Ambassador}, Amazon | Riddle and Bloom & 2018 -- 2019\\[0.4ex]
   \textbf{Project Engineer}, Sonora Bank & 2017\\
-\end{tabularx}
+\end{tabular*}
 
 %-----------------------
 \sectionheading{Conference Participation}

@@ -1,61 +1,36 @@
-# LaTeX CV
+# LaTeX CV (clean setup)
 
-This repository contains LaTeX and Pandoc sources to build a curriculum vitae.
+This repo builds a single LaTeX CV from `src/CV.tex`.
 
-## Layout
-
-- `src/`: LaTeX source (`CV.tex`).
-- `content/`: YAML content for Pandoc builds.
-- `templates/`: LaTeX templates for Pandoc (`latex_classic.tex`, `latex_alt.tex`).
-- `filters/`: Pandoc Lua filters (`render_cv.lua`).
-- `build/`: Generated PDFs (ignored by git). Aux/log files are cleaned.
-- `CV.pdf`: Reference PDF for comparison (checked in).
-- `experiments/`: Previous conversion experiments (moved from `convert/`).
-- `reference/`: Original docx and scratch text files for reference.
-
-## Prerequisites
-
-Install a LaTeX distribution such as TeX Live or MiKTeX. Ensure `pdflatex` is on your `PATH`. For Debian/Ubuntu:
-
-```sh
-sudo apt-get install texlive-latex-base texlive-latex-extra
-```
-
-Install Pandoc if you want to use the template-based builds:
-
-```sh
-sudo apt-get install pandoc
-```
-
-## Building
-
-Using the LaTeX source:
+## Build (default)
 
 ```sh
 make pdf
 ```
 
-This produces `build/CV.pdf` (LaTeX). The command runs twice to resolve references.
+Outputs `build/CV.pdf` using pdfLaTeX and standard LaTeX fonts.
 
-Using the Pandoc templates:
+## Exact font match to the original (Calibri)
+
+The original DOCX/PDF uses Calibri (body) and Calibri Light (headings).
+To match that exactly:
+
+1) Install the fonts system‑wide (e.g., via Microsoft Office):
+   - Calibri.ttf (and Bold/Italic)
+   - Calibri Light.ttf
+
+2) Build with XeLaTeX:
 
 ```sh
-make cv_classic
-make cv_alt
+make pdf_xe
 ```
 
-These produce `build/CV_classic.pdf` and `build/CV_alt.pdf`.
+If fonts are missing, the XeLaTeX build will fail and instruct you to install them.
 
-Compare the two Pandoc outputs as text:
-
-```sh
-make compare_text
-```
-
-## Cleaning
-
-Remove the build directory and all generated files:
+## Clean
 
 ```sh
 make clean
 ```
+
+Removes the `build/` directory.
