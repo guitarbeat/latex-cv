@@ -7,12 +7,11 @@
 \usepackage{fontspec}
 \usepackage{setspace}
 
-% "Classic" look: serif body, conservative spacing
-% Prefer TeX Gyre Termes (Times-like), widely available with TeX Live
-% Prefer TeX Gyre Termes; otherwise try common system fonts, then Heros
-\IfFontExistsTF{TeX Gyre Termes}{\setmainfont{TeX Gyre Termes}[Scale=MatchLowercase]}{%
-  \IfFontExistsTF{Times New Roman}{\setmainfont{Times New Roman}[Scale=MatchLowercase]}{%
-    \IfFontExistsTF{Times}{\setmainfont{Times}[Scale=MatchLowercase]}{\setmainfont{TeX Gyre Heros}[Scale=MatchLowercase]}%
+% "Classic" tuned to match the Word reference metrics
+% Prefer Calibri for body; fallback to Helvetica/Arial/Heros (Word-like)
+\IfFontExistsTF{Calibri}{\setmainfont{Calibri}[Scale=MatchLowercase]}{%
+  \IfFontExistsTF{Helvetica}{\setmainfont{Helvetica}[Scale=MatchLowercase]}{%
+    \IfFontExistsTF{Arial}{\setmainfont{Arial}[Scale=MatchLowercase]}{\setmainfont{TeX Gyre Heros}[Scale=MatchLowercase]}%
   }%
 }
 \IfFontExistsTF{Helvetica}{\setsansfont{Helvetica}}{%
@@ -22,8 +21,8 @@
 \hypersetup{colorlinks=true, urlcolor=black, linkcolor=black}
 \providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
 
-% Slightly tighter than default, but readable
-\setstretch{1.10}
+% Match Word-like leading
+\setstretch{1.15}
 
 \pagestyle{fancy}
 \fancyhf{}
@@ -32,9 +31,9 @@
 
 % Section heading with thin rule (shared with Lua filter)
 \newcommand{\sectionheading}[1]{%
-  \vspace{1ex}%
-  {\large\bfseries\MakeUppercase{#1}}\par\vspace{0.25ex}%
-  {\color[gray]{0.6}\rule{0.98\linewidth}{0.3pt}}\vspace{0.5ex}%
+  \vspace{1.2ex}%
+  {\large\bfseries\MakeUppercase{#1}}\par\vspace{0.3ex}%
+  {\color[gray]{0.6}\rule{0.98\linewidth}{0.3pt}}\vspace{0.6ex}%
 }
 
 % Conservative list spacing
@@ -46,7 +45,7 @@
 \noindent\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}l r}
   {\textbf{$name$}} & $email$ \;|\; $website$ \\
 \end{tabular*}
-\vspace{1ex}
+\vspace{1.2ex}
 
 $for(affiliations)$
 \noindent $affiliations$\\
