@@ -8,9 +8,14 @@
 \usepackage{setspace}
 
 % Word-like fonts (requires XeLaTeX)
-\setmainfont{Times New Roman}
-% Fallback to Arial if Calibri is unavailable
-\setsansfont{Arial}
+% Prefer Calibri for body; fallback to Arial, then TeX Gyre Heros (Helvetica-like)
+\IfFontExistsTF{Calibri}{\setmainfont{Calibri}[Scale=MatchLowercase]}{%
+  \IfFontExistsTF{Arial}{\setmainfont{Arial}[Scale=MatchLowercase]}{\setmainfont{TeX Gyre Heros}[Scale=MatchLowercase]}%
+}
+% Sans UI fonts for headings
+\IfFontExistsTF{Helvetica}{\setsansfont{Helvetica}[BoldFont=Helvetica-Bold, ItalicFont=Helvetica-Oblique]}{%
+  \IfFontExistsTF{Arial}{\setsansfont{Arial}[BoldFont=Arial-BoldMT, ItalicFont=Arial-ItalicMT]}{\setsansfont{TeX Gyre Heros}}%
+}
 
 \hypersetup{colorlinks=true, urlcolor=blue, linkcolor=black}
 \providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}

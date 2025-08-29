@@ -8,7 +8,7 @@ TPL_CLASSIC=methods/pandoc-classic/template.tex
 TPL_DOCX=methods/pandoc-docxlike/template.tex
 
 .PHONY: all
-all: latex pandoc-classic pandoc-docx
+all: latex pandoc-docx
 
 # LaTeX method (hand-written)
 .PHONY: latex
@@ -22,22 +22,11 @@ $(OUT)/latex/CV.pdf: $(LATEX_TEX) | $(OUT)/latex
 	xelatex -output-directory=$(OUT)/latex $(LATEX_TEX)
 
 # Pandoc methods
-.PHONY: pandoc-classic pandoc-docx
-pandoc-classic: $(OUT)/pandoc-classic/CV.pdf
+.PHONY: pandoc-docx
 pandoc-docx:    $(OUT)/pandoc-docxlike/CV.pdf
 
-$(OUT)/pandoc-classic:
-	mkdir -p $@
 $(OUT)/pandoc-docxlike:
 	mkdir -p $@
-
-$(OUT)/pandoc-classic/CV.pdf: $(PANDOC_META) $(PANDOC_FILTER) $(TPL_CLASSIC) | $(OUT)/pandoc-classic
-	pandoc --standalone \
-	  --metadata-file=$(PANDOC_META) \
-	  --lua-filter=$(PANDOC_FILTER) \
-	  --template=$(TPL_CLASSIC) \
-	  -t latex \
-	  -o $@ </dev/null
 
 $(OUT)/pandoc-docxlike/CV.pdf: $(PANDOC_META) $(PANDOC_FILTER) $(TPL_DOCX) | $(OUT)/pandoc-docxlike
 	pandoc --standalone \
@@ -52,6 +41,15 @@ $(OUT)/pandoc-docxlike/CV.pdf: $(PANDOC_META) $(PANDOC_FILTER) $(TPL_DOCX) | $(O
 .PHONY: compare
 compare: all
 	./scripts/gen_comparisons.sh
+
+.PHONY: context extract validate
+context: extract validate
+
+extract:
+	./scripts/context_tools.sh extract
+
+validate: all
+	./scripts/context_tools.sh validate
 
 .PHONY: clean
 clean:

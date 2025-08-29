@@ -71,8 +71,8 @@ make_side_and_diff() {
   local right_labeled="$CMP_DIR/_tmp_right_${variant}_${page}.png"
   local diff="$DIFF_DIR/$variant/diff-${page}.png"
 
-  [ -f "$left" ] || { echo "Missing original: $left" >&2; return; }
-  [ -f "$right" ] || { echo "Missing variant ($variant): $right" >&2; return; }
+  [ -f "$left" ] || { return; }
+  [ -f "$right" ] || { return; }
 
   label_image "$left"  "Original"            "$left_labeled"
   label_image "$right" "$(title_case "$variant")" "$right_labeled"
@@ -91,8 +91,14 @@ while IFS= read -r f; do
   pages+=("$n")
 done < <(find "$ORIG_DIR" -type f -name 'page-*.png' | sort)
 
+variants=()
+[ -f "$BUILD_DIR/latex/CV.pdf" ] && variants+=(latex)
+[ -f "$BUILD_DIR/pandoc-classic/CV.pdf" ] && variants+=(pandoc-classic)
+[ -f "$BUILD_DIR/pandoc-alt/CV.pdf" ] && variants+=(pandoc-alt)
+[ -f "$BUILD_DIR/pandoc-docxlike/CV.pdf" ] && variants+=(pandoc-docxlike)
+
 for p in "${pages[@]}"; do
-  for v in latex pandoc-classic pandoc-alt pandoc-docxlike; do
+  for v in "${variants[@]}"; do
     make_side_and_diff "$p" "$v"
   done
   # Build a single montage per page: include whichever variants exist
