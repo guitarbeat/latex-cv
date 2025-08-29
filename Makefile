@@ -42,6 +42,10 @@ $(OUT)/pandoc-docxlike/CV.pdf: $(PANDOC_META) $(PANDOC_FILTER) $(TPL_DOCX) | $(O
 compare: all
 	./scripts/gen_comparisons.sh
 
+.PHONY: score
+score: compare
+	./scripts/score_methods.sh
+
 .PHONY: context extract validate
 context: extract validate
 
