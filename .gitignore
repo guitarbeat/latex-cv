@@ -1,6 +1,14 @@
 build/
+compare/
 *.aux
 *.log
 *.out
 *.toc
 *.synctex.gz
+*.aux
+*.log
+*.out
+*.toc
+*.synctex.gz
+*.pdf
+build/*.txt

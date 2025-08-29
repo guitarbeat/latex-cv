@@ -1,0 +1,62 @@
+\documentclass[12pt]{article}
+\usepackage[top=1in,bottom=1in,left=0.75in,right=0.75in]{geometry}
+\usepackage{fancyhdr}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{fontspec}
+\usepackage{setspace}
+
+% Word-like fonts (requires XeLaTeX)
+% Prefer Calibri for body; fallback to Arial, then TeX Gyre Heros (Helvetica-like)
+\IfFontExistsTF{Calibri}{\setmainfont{Calibri}[Scale=MatchLowercase]}{%
+  \IfFontExistsTF{Helvetica}{\setmainfont{Helvetica}[Scale=MatchLowercase]}{%
+    \IfFontExistsTF{Arial}{\setmainfont{Arial}[Scale=MatchLowercase]}{\setmainfont{TeX Gyre Heros}[Scale=MatchLowercase]}%
+  }%
+}
+% Sans UI fonts for headings
+\IfFontExistsTF{Helvetica}{\setsansfont{Helvetica}[BoldFont=Helvetica-Bold, ItalicFont=Helvetica-Oblique]}{%
+  \IfFontExistsTF{Arial}{\setsansfont{Arial}[BoldFont=Arial-BoldMT, ItalicFont=Arial-ItalicMT]}{\setsansfont{TeX Gyre Heros}}%
+}
+
+\hypersetup{colorlinks=true, urlcolor=black, linkcolor=black}
+\providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
+% Word-like line spacing
+\setstretch{1.15}
+
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0pt}
+\fancyfoot[R]{\small A.L. Woods, \thepage}
+
+% Uppercase section heading with thin rule (Word-like)
+\newcommand{\sectionheading}[1]{%
+  \vspace{1.2ex}%
+  {\large\bfseries\MakeUppercase{#1}}\par\vspace{0.3ex}%
+  {\color[gray]{0.6}\rule{0.98\linewidth}{0.3pt}}\vspace{0.6ex}%
+}
+
+% Word-like spacing for lists
+\setlist[itemize]{noitemsep, topsep=0.5ex, itemsep=0pt, leftmargin=1.25em, labelsep=0.5em}
+
+\begin{document}
+
+% Header using metadata (inline name + contact, then affiliations + address)
+\noindent\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}l r}
+  {\textbf{$name$}} & $email$ \;|\; $website$ \\
+\end{tabular*}
+\vspace{1.2ex}
+
+$for(affiliations)$
+\noindent $affiliations$\\
+$endfor$
+$if(address)$
+\noindent $address$
+$endif$
+
+
+
+$body$
+
+\end{document}
