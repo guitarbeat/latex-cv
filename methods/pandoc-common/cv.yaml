@@ -6,10 +6,7 @@ affiliations:
   - Cockrell School of Engineering
   - The University of Texas at Austin
 address: Austin, TX 78712
-summary: >-
-  Experienced and passionate researcher with a Ph.D. in Biomedical Engineering and a portfolio in Imaging
-  Science. Skilled in microvasculature optical imaging techniques and digital image processing, with experience in
-  neurovascular imaging and clinical research.
+
 
 education:
   - degree: Ph.D. Biomedical Engineering
@@ -24,12 +21,12 @@ education:
     note: Minor in Commercial Music and Recording
 
 publications:
-  - Niemeier, R., N. Schnoor, A.L. Woods, and J.D. Rogers, “Calibration of liquid crystal variable retarders using a common-path interferometer and fit of a closed-form expression for the retardance curve,” published to Applied Optics, October. 2020.
-  - Engelmann, S.A., Tomar, A., Woods, A.L., Dunn, A.K. "Pulse train gating to improve signal generation for in vivo two-photon fluorescence microscopy," published to Neurophotonics, October 2023.
-  - "Chu, D.Y., Ravelli, M.N., Faltersack, K.M., Woods, A.L., Almane, D., Li, Z., Sampene, E., Felton, E.A. (2023). 'Hypocarnitinemia and its effect on seizure control in adult patients with intractable epilepsy on the modified Atkins diet,' submitted to Frontiers in Nutrition, Nutrition and Metabolism, September 29, 2023. Manuscript ID: 1304209."
+  - "Niemeier, R., Schnoor, N., **Woods, A.L.**, Rogers, J.D. \"Calibration of liquid crystal variable retarders using a common-path interferometer and fit of a closed-form expression for the retardance curve,\" published to **Applied Optics**, October 2020."
+  - "Engelmann, S.A., Tomar, A., **Woods, A.L.**, Dunn, A.K. \"Pulse train gating to improve signal generation for in vivo two-photon fluorescence microscopy,\" published to **Neurophotonics**, October 2023."
+  - "Chu, D.Y., Ravelli, M.N., Faltersack, K.M., **Woods, A.L.**, Almane, D., Li, Z., Sampene, E., Felton, E.A. (2023). \"Hypocarnitinemia and its effect on seizure control in adult patients with intractable epilepsy on the modified Atkins diet,\" submitted to **Frontiers in Nutrition, Nutrition and Metabolism**, September 29, 2023. Manuscript ID: 1304209."
 
 patents:
-  - Malady, B., Woods, A.L., Pogue, M., Purani, H. "Theranostic Delivery System," Provisional Patent Application, No. 63/442436, granted March 2, 2023.
+  - "Malady, B., **Woods, A.L.**, Pogue, M., Purani, H. \"Theranostic Delivery System,\" **Provisional Patent** Application, No. 63/442436, granted March 2, 2023."
 
 research_experience:
   - title: Graduate Student Researcher
@@ -144,10 +141,10 @@ honors_awards:
     date: 2016 – 2018
 
 posters:
-  - text: Aaron L. Woods; Andrew K. Dunn. Investigating Neurovascular Angiogenesis through Optical Imaging. University of Texas at Austin T32 Retreat, Austin, TX, USA, May 10, 2022
-  - text: "Arron L. Woods; Daniel Y. Chu; Michele N. Ravelli; Kelly Faltersack; Elizabeth Felton. Carnitine Deficiencies: Clinical Insights for Ketogenic Diet Therapies. UW- Madison SURE Poster Session, Madison, WI, USA, July 31, 2019"
-  - text: "Arron L. Woods; Jeremy D. Rogers. Automated Calibration of Liquid Crystal Variable Retarder. UW- Madison SURE Poster Session, Madison, WI, USA, July 31, 2018"
-  - text: "ESW-UTEP. Project Mine-Recycler: Producing filament and 3D printed consumer goods from plastic waste. Engineers for a Sustainable World 2019 Annual Conference Poster Session, El Paso, TX, USA, April 5, 2019"
+  - text: "Aaron L. Woods; Andrew K. Dunn. **Investigating Neurovascular Angiogenesis through Optical Imaging**. University of Texas at Austin T32 Retreat, Austin, TX, USA, May 10, 2022"
+  - text: "Arron L. Woods; Daniel Y. Chu; Michele N. Ravelli; Kelly Faltersack; Elizabeth Felton. **Carnitine Deficiencies: Clinical Insights for Ketogenic Diet Therapies**. UW- Madison SURE Poster Session, Madison, WI, USA, July 31, 2019"
+  - text: "Arron L. Woods; Jeremy D. Rogers. **Automated Calibration of Liquid Crystal Variable Retarder**. UW- Madison SURE Poster Session, Madison, WI, USA, July 31, 2018"
+  - text: "ESW-UTEP. Project Mine-Recycler: **Producing filament and 3D printed consumer goods from plastic waste.** Engineers for a Sustainable World 2019 Annual Conference Poster Session, El Paso, TX, USA, April 5, 2019"
 
 academic_service:
   - title: Chairman of the Board of Directors
@@ -170,9 +167,9 @@ academic_service:
     org: Sunrise Movement El Paso
     date: 2020 – 2021
     bullets:
-      - Led local chapter of national youth-led movement
-      - Collaborated with other organizations and community leaders
-      - Educated and empowered members to act and make a positive impact
+      - Strategized solidarity and trust building with local allies
+      - Plan and organize with other organizations for joint efforts
+      - Established weekly virtual meetings for safe discussions
   - simple:
       - "Social Chair, Green Team (UTEP) | 2020"
       - "Webmaster, Engineers for a Sustainable World (UTEP) | 2017 – 2019"
@@ -180,12 +177,21 @@ academic_service:
       - "Volunteer Leader, Young Life College (UTEP) | 2016 – 2018"
 
 professional_experience:
+  # Use text from original PDF rather than DOCX
   - title: Co-founder
     org: Therosafe (Startup)
     date: 2021 – Present
-    desc: In the field of theranostics, Therosafe seeks to reduce radiation exposure for medical caregivers. My involvement is currently extensive, with an emphasis on operations and marketing.
+    desc: >-
+      As co-founder of a startup in the field of theranostics, I play a multifaceted role with a focus on
+      operations. I contributed to the development of the company's concept, deliverables, and presentations,
+      created visualizations to showcase the product, and applied to various competitions to clearly articulate the need we are solving.
+  - title: Community Outreach Specialist
+    org: University of Texas at El Paso
+    date: 2020
+    desc: >-
+      Experienced in developing and implementing marketing programs for outreach/recruitment. Assisted in curriculum and
+      materials development. Evaluated program success and adjusted. Conducted program education and exhibit presentations.
   - simple:
-      - "Community Outreach Specialist, University of Texas at El Paso | 2020"
       - "Project Analyst, University of Texas at El Paso | 2018 – 2019"
       - "Sound Engineer, Beacon Hill Recording Studios, LLC | 2018 – 2019"
       - "Student Ambassador, Amazon | Riddle and Bloom | 2018 – 2019"

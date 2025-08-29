@@ -31,7 +31,7 @@ validate_against_original() {
   mkdir -p "$TMP_DIR"
   # Original reference text (layout-preserving)
   pdftotext -layout "$REF_PDF" "$TMP_DIR/original.txt"
-  for m in latex pandoc-docxlike; do
+  for m in latex pandoc-classic pandoc-alt pandoc-docxlike; do
     pdf="$BUILD_DIR/$m/CV.pdf"
     [ -f "$pdf" ] || continue
     pdftotext -layout "$pdf" "$TMP_DIR/$m.txt"
@@ -41,7 +41,7 @@ validate_against_original() {
   for f in "$TMP_DIR"/*.txt; do
     awk '{gsub(/[ \t]+$/,"",$0); print}' "$f" > "$f.norm"
   done
-  for m in latex pandoc-docxlike; do
+  for m in latex pandoc-classic pandoc-alt pandoc-docxlike; do
     [ -f "$TMP_DIR/$m.txt.norm" ] || continue
     echo "--- Diff: $m vs original ---"
     diff -u "$TMP_DIR/original.txt.norm" "$TMP_DIR/$m.txt.norm" || true
@@ -62,4 +62,3 @@ case "${1:-}" in
     exit 2
     ;;
 esac
-

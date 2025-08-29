@@ -17,6 +17,41 @@ local function rawblock(s)
   return pandoc.RawBlock('latex', s)
 end
 
+-- Convert inline list to LaTeX string
+local function latex_of_inlines(inlines)
+  local doc = pandoc.Pandoc({ pandoc.Plain(inlines) })
+  local s = pandoc.write(doc, 'latex') or ''
+  -- trim trailing newlines
+  return (s:gsub('%s+$',''))
+end
+
+-- Build a two-column left/right line using tabular* with fixed column widths
+local function two_col_line(left_inlines, right_inlines, lw, rw)
+  lw = lw or '0.78\\textwidth'
+  rw = rw or '0.20\\textwidth'
+  local ltx = latex_of_inlines(left_inlines)
+  local rtx = latex_of_inlines(right_inlines)
+  local tbl = table.concat({
+    '\\noindent\\begin{tabular*}{\\textwidth}{@{}p{', lw, '} p{', rw, '}@{}}',
+    ltx, ' & ', rtx, '\\\\',
+    '\\end{tabular*}'
+  })
+  return rawblock(tbl)
+end
+
+-- Parse a Markdown string into inline elements
+local function md_inlines(s)
+  if not s or s == '' then return List{} end
+  local doc = pandoc.read(s, 'markdown')
+  local inls = List{}
+  for _,b in ipairs(doc.blocks) do
+    if b.t == 'Para' or b.t == 'Plain' then
+      for _,i in ipairs(b.content) do inls:insert(i) end
+    end
+  end
+  return inls
+end
+
 local function tex_escape(s)
   s = s:gsub('\\', '\\textbackslash{}')
   s = s:gsub('([#%%$&_{}])', '\\%1')
@@ -41,16 +76,16 @@ local function add_education(meta)
     local date = utils.stringify(e.date or '')
     local right = utils.stringify(e.right or '')
     local note = utils.stringify(e.note or '')
-    -- First line: degree left, date right
-    local inlines = List{}
-    if degree ~= '' then inlines:insert(pandoc.Strong(pandoc.Str(degree))) end
-    if date ~= '' then inlines:insert(rawlatex(' \\hfill ' .. date)) end
-    blocks:insert(pandoc.Para(inlines))
-    -- Second line: institution left, right detail right
-    local inlines2 = List{ pandoc.Emph(pandoc.Str(inst)) }
-    if right ~= '' then inlines2:insert(rawlatex(' \\hfill ' .. right)) end
-    blocks:insert(pandoc.Para(inlines2))
-    if note ~= '' then blocks:insert(plain(note)) end
+    -- Degree (bold) | date (italic)
+    local left1 = md_inlines('**' .. degree .. '**')
+    local right1 = date ~= '' and md_inlines('*' .. date .. '*') or List{}
+    blocks:insert(two_col_line(left1, right1, '0.75\\textwidth', '0.23\\textwidth'))
+    -- Institution (italic) | right detail (italic)
+    local left2 = md_inlines('*' .. inst .. '*')
+    local right2 = md_inlines(right)
+    blocks:insert(two_col_line(left2, right2, '0.75\\textwidth', '0.23\\textwidth'))
+    blocks:insert(rawblock('\\vspace{0.6ex}'))
+    if note ~= '' then blocks:insert(pandoc.Para(md_inlines(note))) end
   end
   return blocks
 end
@@ -70,34 +105,33 @@ local function add_publications_and_patents(meta)
     label = utils.stringify(meta.labels.publications_section)
   end
   blocks:insert(section(label))
-  local items = List{}
   for _,p in ipairs(pubs) do
-    items:insert(pandoc.Plain({ pandoc.Str(p) }))
+    blocks:insert(pandoc.Para(md_inlines(p)))
   end
-  blocks:insert(pandoc.BulletList(items))
   return blocks
 end
 
 local function role_para(title, org, sub, date)
-  local inlines = List{}
-  if title ~= '' then
-    inlines:insert(pandoc.Strong(pandoc.Str(title)))
-  end
+  local left = List{}
+  if title ~= '' then for _,i in ipairs(md_inlines('**' .. title .. '**')) do left:insert(i) end end
   if org ~= '' then
-    if #inlines > 0 then inlines:insert(pandoc.Str(', ')) end
-    inlines:insert(pandoc.Str(org))
+    if #left > 0 then left:insert(pandoc.Str(', ')) end
+    for _,i in ipairs(md_inlines(org)) do left:insert(i) end
   end
-  if date ~= '' then inlines:insert(rawlatex(' \\hfill ' .. date)) end
-  local p = pandoc.Para(inlines)
-  local lines = List{ p }
-  if sub ~= '' then lines:insert(plain(sub)) end
+  local right = md_inlines(date)
+  local lines = List{ two_col_line(left, right, '0.77\\textwidth', '0.23\\textwidth') }
+  if sub ~= '' then
+    lines:insert(rawblock('\\vspace{0.3ex}'))
+    lines:insert(pandoc.Para(md_inlines(sub)))
+  end
+  lines:insert(rawblock('\\vspace{0.6ex}'))
   return lines
 end
 
 local function bullets_from(list)
   local items = List{}
   for _,b in ipairs(list or {}) do
-    items:insert(pandoc.Plain({ pandoc.Str(utils.stringify(b)) }))
+    items:insert(pandoc.Plain(md_inlines(utils.stringify(b))))
   end
   return items
 end
@@ -127,10 +161,10 @@ local function add_funding(meta)
     local label = utils.stringify(f.label or '')
     local date = utils.stringify(f.date or '')
     local note = utils.stringify(f.note or '')
-    local inlines = List{ pandoc.Str(label) }
+    local inlines = md_inlines(label)
     if date ~= '' then inlines:insert(rawlatex(' \\hfill ' .. date)) end
     blocks:insert(pandoc.Para(inlines))
-    if note ~= '' then blocks:insert(plain(note)) end
+    if note ~= '' then blocks:insert(pandoc.Para(md_inlines(note))) end
   end
   return blocks
 end
@@ -142,7 +176,7 @@ local function add_simple_list_section(meta, key, title)
   blocks:insert(section(title))
   local items = List{}
   for _,p in ipairs(lst) do
-    items:insert(pandoc.Plain({ pandoc.Str(utils.stringify(p.text or p)) }))
+    items:insert(pandoc.Plain(md_inlines(utils.stringify(p.text or p))))
   end
   blocks:insert(pandoc.BulletList(items))
   return blocks
@@ -156,10 +190,10 @@ local function add_academic_appointments(meta)
     local label = utils.stringify(a.label or '')
     local org = utils.stringify(a.org or '')
     local date = utils.stringify(a.date or '')
-    local inlines = List{ pandoc.Strong(pandoc.Str(label)) }
+    local inlines = List{ pandoc.Strong(md_inlines(label)) }
     if org ~= '' then
       inlines:insert(pandoc.Str(' '))
-      inlines:insert(pandoc.Str(org))
+      for _,i in ipairs(md_inlines(org)) do inlines:insert(i) end
     end
     if date ~= '' then inlines:insert(rawlatex(' \\hfill ' .. date)) end
     blocks:insert(pandoc.Para(inlines))
@@ -186,10 +220,10 @@ local function add_honors(meta)
     local label = utils.stringify(h.label or '')
     local date = utils.stringify(h.date or '')
     local note = utils.stringify(h.note or '')
-    local inlines = List{ pandoc.Str(label) }
+    local inlines = md_inlines(label)
     if date ~= '' then inlines:insert(rawlatex(' \\hfill ' .. date)) end
     blocks:insert(pandoc.Para(inlines))
-    if note ~= '' then blocks:insert(plain(note)) end
+    if note ~= '' then blocks:insert(pandoc.Para(md_inlines(note))) end
   end
   return blocks
 end
@@ -204,7 +238,7 @@ local function add_service(meta)
       if s.bullets then blocks:insert(pandoc.BulletList(bullets_from(s.bullets))) end
     elseif s.simple then
       local items = List{}
-      for _,line in ipairs(s.simple) do items:insert(pandoc.Plain({ pandoc.Str(utils.stringify(line)) })) end
+      for _,line in ipairs(s.simple) do items:insert(pandoc.Plain(md_inlines(utils.stringify(line)))) end
       blocks:insert(pandoc.BulletList(items))
     end
   end
@@ -222,10 +256,10 @@ local function add_professional(meta)
       local date = utils.stringify(p.date or '')
       local desc = utils.stringify(p.desc or '')
       for _,b in ipairs(role_para(title, org, '', date)) do blocks:insert(b) end
-      if desc ~= '' then blocks:insert(plain(desc)) end
+      if desc ~= '' then blocks:insert(pandoc.Para(md_inlines(desc))) end
     elseif p.simple then
       local items = List{}
-      for _,line in ipairs(p.simple) do items:insert(pandoc.Plain({ pandoc.Str(utils.stringify(line)) })) end
+      for _,line in ipairs(p.simple) do items:insert(pandoc.Plain(md_inlines(utils.stringify(line)))) end
       blocks:insert(pandoc.BulletList(items))
     end
   end

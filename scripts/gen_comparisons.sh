@@ -47,6 +47,8 @@ pdftoppm -png -r 200 "$ORIG_PDF" "$ORIG_DIR/page"
 [ -f "$BUILD_DIR/pandoc-classic/CV.pdf" ] && pdftoppm -png -r 200 "$BUILD_DIR/pandoc-classic/CV.pdf"   "$METH_DIR/pandoc-classic/page" || true
 [ -f "$BUILD_DIR/pandoc-alt/CV.pdf" ] && pdftoppm -png -r 200 "$BUILD_DIR/pandoc-alt/CV.pdf"       "$METH_DIR/pandoc-alt/page" || true
 [ -f "$BUILD_DIR/pandoc-docxlike/CV.pdf" ] && pdftoppm -png -r 200 "$BUILD_DIR/pandoc-docxlike/CV.pdf"  "$METH_DIR/pandoc-docxlike/page" || true
+# Optional: Word-exported PDF
+[ -f "$BUILD_DIR/word/original.pdf" ] && { mkdir -p "$METH_DIR/word" "$DIFF_DIR/word"; pdftoppm -png -r 200 "$BUILD_DIR/word/original.pdf" "$METH_DIR/word/page"; } || true
 
 label_image() {
   local in="$1"; shift
@@ -96,6 +98,7 @@ variants=()
 [ -f "$BUILD_DIR/pandoc-classic/CV.pdf" ] && variants+=(pandoc-classic)
 [ -f "$BUILD_DIR/pandoc-alt/CV.pdf" ] && variants+=(pandoc-alt)
 [ -f "$BUILD_DIR/pandoc-docxlike/CV.pdf" ] && variants+=(pandoc-docxlike)
+[ -f "$BUILD_DIR/word/original.pdf" ] && variants+=(word)
 
 for p in "${pages[@]}"; do
   for v in "${variants[@]}"; do
@@ -108,6 +111,7 @@ for p in "${pages[@]}"; do
   if [ -f "$METH_DIR/pandoc-classic/page-$p.png" ]; then L3="$CMP_DIR/_tmp_L3_$p.png"; label_image "$METH_DIR/pandoc-classic/page-$p.png" "Pandoc Classic" "$L3"; LBL_FILES+=("$L3"); fi
   if [ -f "$METH_DIR/pandoc-alt/page-$p.png" ]; then L4="$CMP_DIR/_tmp_L4_$p.png"; label_image "$METH_DIR/pandoc-alt/page-$p.png" "Pandoc Alt" "$L4"; LBL_FILES+=("$L4"); fi
   if [ -f "$METH_DIR/pandoc-docxlike/page-$p.png" ]; then L5="$CMP_DIR/_tmp_L5_$p.png"; label_image "$METH_DIR/pandoc-docxlike/page-$p.png" "Pandoc Docxlike" "$L5"; LBL_FILES+=("$L5"); fi
+  if [ -f "$METH_DIR/word/page-$p.png" ]; then L6="$CMP_DIR/_tmp_L6_$p.png"; label_image "$METH_DIR/word/page-$p.png" "Word Export" "$L6"; LBL_FILES+=("$L6"); fi
   "${CONVERT_CMD[@]}" "${LBL_FILES[@]}" +append "$SIDE_DIR/side-$p.png"
   rm -f "${LBL_FILES[@]}"
 done

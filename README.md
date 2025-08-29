@@ -10,6 +10,8 @@ Layout
 - methods/
   - latex/: hand-written LaTeX attempt (CV.tex)
   - pandoc-common/: shared metadata and filter (cv.yaml, render_cv.lua)
+  - pandoc-classic/: Pandoc template with classic LaTeX look (template.tex)
+  - pandoc-alt/: Pandoc template with alternate look (template.tex)
   - pandoc-docxlike/: Word-like Pandoc template (template.tex)
 - build/: per-method PDFs under build/<method>/CV.pdf
 - compare/: generated comparisons (PNGs)
@@ -30,9 +32,11 @@ Build
 - Build every method:
   make all
 
-Outputs:
-- build/latex/CV.pdf
-- build/pandoc-docxlike/CV.pdf
+- Outputs:
+  - build/latex/CV.pdf
+  - build/pandoc-classic/CV.pdf
+  - build/pandoc-alt/CV.pdf
+  - build/pandoc-docxlike/CV.pdf
 
 Compare
 
