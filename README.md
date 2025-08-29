@@ -1,8 +1,17 @@
 CV Recreation (Reference vs Methods)
 
+
+This repository contains a LaTeX source file that reproduces the curriculum vitae found in the provided `CV_original.pdf`.
+
+> **Note:** The included `CV_original.pdf` was not generated from `src/CV.tex`; it is an existing PDF used purely as a reference. The LaTeX source is an independent recreation that you can compile to compare against the reference PDF.
+
 Goal: reproduce the original CV (from Microsoft Word) using LaTeX/Pandoc. The repo clearly separates the reference from each build method and provides labeled visual comparisons.
 
 Layout
+
+- `src/` – LaTeX source (`CV.tex`)
+- `CV_original.pdf` – reference PDF for comparison
+- `build/` – generated build artefacts (ignored by git)
 
 - reference/
   - original.pdf: the ground truth PDF (from Word)
@@ -47,6 +56,8 @@ Compare
 Results:
 - compare/side/side-<page>.png (5-up montage)
 - compare/diffs/<method>/diff-<page>.png
+
+After compilation you can compare the generated PDF to the reference `CV_original.pdf` to ensure they match.
 
 Clean
 
