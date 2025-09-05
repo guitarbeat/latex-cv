@@ -1,0 +1,490 @@
+\documentclass[12pt]{article}
+
+% =============================================================================
+% PACKAGE CONFIGURATION
+% =============================================================================
+
+% Page geometry and margins
+\usepackage[top=1in,bottom=1in,left=0.75in,right=0.75in]{geometry}
+
+% Font handling (XeLaTeX/LuaLaTeX)
+\usepackage{fontspec}
+\usepackage{iftex}
+
+% Typography and formatting
+\usepackage{setspace}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{array}
+\usepackage{newunicodechar}
+\usepackage{microtype} % Phase 3 refinement: Enhanced character spacing
+
+% Header and footer
+\usepackage{fancyhdr}
+
+% Hyperlinks
+\usepackage{hyperref}
+
+% =============================================================================
+% FONT CONFIGURATION
+% =============================================================================
+
+% Font fallback hierarchy based on design specifications
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage{lmodern}
+  \usepackage{helvet} % Helvetica for PDFTeX
+  \renewcommand{\familydefault}{\sfdefault}
+\else
+  \usepackage{fontspec}
+  \defaultfontfeatures{Ligatures=TeX}
+  
+  % Primary font stack (Word-like): Calibri → Helvetica → Arial → TeX Gyre Heros
+  % Phase 2 refinement: Enhanced font scaling for better rendering match
+  \IfFontExistsTF{Calibri}{\setmainfont{Calibri}[Scale=0.95,Scale=MatchLowercase]}{%
+    \IfFontExistsTF{Helvetica}{\setmainfont{Helvetica}[Scale=0.97,Scale=MatchLowercase]}{%
+      \IfFontExistsTF{Arial}{\setmainfont{Arial}[Scale=0.96,Scale=MatchLowercase]}{\setmainfont{TeX Gyre Heros}[Scale=0.98,Scale=MatchLowercase]}%
+    }%
+  }
+  
+  % Sans serif font stack for headings with enhanced fallback
+  \IfFontExistsTF{Helvetica}{\newfontfamily\SansHead{Helvetica}[BoldFont=Helvetica-Bold, ItalicFont=Helvetica-Oblique]}{%
+    \IfFontExistsTF{Arial}{\newfontfamily\SansHead{Arial}[BoldFont=Arial-BoldMT, ItalicFont=Arial-ItalicMT]}{%
+      \IfFontExistsTF{Calibri}{\newfontfamily\SansHead{Calibri}[BoldFont=Calibri-Bold, ItalicFont=Calibri-Italic]}{\newfontfamily\SansHead{TeX Gyre Heros}}%
+    }%
+  }
+  
+  % Monospace font for special formatting
+  \IfFontExistsTF{Consolas}{\setmonofont{Consolas}[Scale=MatchLowercase]}{%
+    \IfFontExistsTF{Courier New}{\setmonofont{Courier New}[Scale=MatchLowercase]}{%
+      \setmonofont{TeX Gyre Cursor}[Scale=MatchLowercase]%
+    }%
+  }
+\fi
+
+% =============================================================================
+% SPECIAL CHARACTER HANDLING
+% =============================================================================
+
+% Map hard hyphen (U+2010) to ASCII hyphen to avoid missing glyphs
+\newunicodechar{‐}{-}
+
+% =============================================================================
+% HYPERLINK CONFIGURATION
+% =============================================================================
+
+\hypersetup{
+  colorlinks=true,
+  urlcolor=black,
+  linkcolor=black,
+  pdfpagelabels=true,
+  pdfpagemode=UseOutlines
+}
+
+% =============================================================================
+% HEADER AND FOOTER CONFIGURATION
+% =============================================================================
+
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0pt}
+% Footer: show combined name and page number on right to mirror original
+\fancyfoot{} % clear
+\fancyfoot[R]{\small A.L. Woods, \thepage}
+\setlength{\footskip}{13.87pt} % Fix fancyhdr warning
+
+% =============================================================================
+% LAYOUT AND SPACING CONFIGURATION
+% =============================================================================
+
+% Line spacing configuration
+\setstretch{1.15} % Word-like line spacing, 15% extra space
+
+% Paragraph spacing configuration
+\setlength{\parindent}{0pt} % No paragraph indentation
+\setlength{\parskip}{0pt} % No extra space between paragraphs
+
+% Page layout verification
+\setlength{\topskip}{1em} % Space between top of page and first line
+\setlength{\topmargin}{0pt} % Top margin (handled by geometry)
+\setlength{\headheight}{0pt} % Header height
+\setlength{\headsep}{0pt} % Space between header and text
+% \setlength{\footskip}{0pt} % Space between text and footer - disabled, using 13.87pt above
+
+% =============================================================================
+% CUSTOM COMMANDS AND ENVIRONMENTS
+% =============================================================================
+
+% Section heading formatting based on design specifications
+\ifPDFTeX
+  \newcommand{\sectionheading}[1]{%
+    \vspace{1.2ex}%
+    {\large\bfseries\MakeUppercase{#1}}\par\vspace{0.3ex}%
+    {\color[gray]{0.6}\rule{0.98\linewidth}{0.3pt}}\vspace{0.6ex}%
+  }
+\else
+  \newcommand{\sectionheading}[1]{%
+    \vspace{1.2ex}%
+    {\large\bfseries{\SansHead \MakeUppercase{#1}}}\par\vspace{0.3ex}%
+    {\color[gray]{0.6}\rule{0.98\linewidth}{0.3pt}}\vspace{0.6ex}%
+  }
+\fi
+
+% Typography hierarchy commands
+\newcommand{\jobtitle}[1]{\textbf{#1}} % Level 2: Job/Position Titles
+\newcommand{\institution}[1]{#1} % Level 3: Institution/Organization Names
+\newcommand{\dateinfo}[1]{\textit{#1}} % Level 4: Dates and Locations
+
+% Special typography commands
+\newcommand{\authorname}[1]{\textbf{#1}} % Author names in publications
+\newcommand{\journalname}[1]{\textit{#1}} % Journal names
+\newcommand{\awardname}[1]{\textbf{#1}} % Award names
+\newcommand{\degreename}[1]{\textbf{#1}} % Degree titles
+\newcommand{\specialterm}[1]{\textbf{#1}} % Special terms like "Provisional Patent"
+
+% Size variation commands
+\newcommand{\headername}[1]{\textbf{#1}} % Header name formatting
+\newcommand{\footertext}[1]{\small #1} % Footer text formatting
+\newcommand{\citationtext}[1]{\small #1} % Publication citation formatting
+
+% Special character and formatting commands
+\newcommand{\contactsep}{\;|\;} % Separator between contact information
+\newcommand{\daterange}[2]{#1 -- #2} % Date range formatting
+\newcommand{\nonbreakingspace}{~} % Non-breaking space
+
+% Bullet point configuration based on design specifications
+% Phase 2 refinement: Enhanced list formatting consistency
+\setlist[itemize]{noitemsep, topsep=0.5ex, itemsep=0pt, leftmargin=1.25em, labelsep=0.5em}
+\setlist[enumerate]{noitemsep, topsep=0.5ex, itemsep=0pt, leftmargin=1.25em, labelsep=0.5em}
+
+% Additional list formatting commands for consistency
+\newcommand{\listitem}[1]{\item #1}
+\newcommand{\listspacing}{\vspace{0.3ex}}
+\newcommand{\listindent}{\hspace{1.25em}}
+
+% Custom tabular environments for consistent layout
+% Phase 2 refinement: Optimized column width ratios for better alignment
+\newenvironment{contenttabular}[1]{%
+  \begin{tabular*}{\textwidth}{@{}p{0.77\textwidth} p{0.22\textwidth}@{}}%
+}{%
+  \end{tabular*}%
+}
+
+\newenvironment{flexibletabular}[1]{%
+  \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}p{0.77\textwidth}r}%
+}{%
+  \end{tabular*}%
+}
+
+\newenvironment{headertabular}[1]{%
+  \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}l r}%
+}{%
+  \end{tabular*}%
+}
+
+% Enhanced spacing commands for consistent layout
+\newcommand{\sectionvspace}{\vspace{1.2ex}} % Space before major sections
+\newcommand{\contentvspace}{\vspace{0.6ex}} % Space after content entries
+\newcommand{\publicationvspace}{\vspace{0.8ex}} % Space after publication entries
+\newcommand{\listvspace}{\vspace{0.4ex}} % Space after list items
+\newcommand{\headervspace}{\vspace{1.3ex}} % Space after header contact info
+
+% Additional consistency commands for Phase 1 refinement
+\newcommand{\entryvspace}{\vspace{0.5ex}} % Standard entry spacing
+\newcommand{\itemvspace}{\vspace{0.3ex}} % Standard item spacing
+\newcommand{\blockvspace}{\vspace{0.7ex}} % Standard block spacing
+\newcommand{\descriptionvspace}{\vspace{0.5ex}} % Description spacing
+\newcommand{\contentblock}[1]{\vspace{0.7ex}#1\vspace{0.3ex}} % Content block formatting
+\newcommand{\descriptionblock}[1]{\vspace{0.5ex}#1\vspace{0.2ex}} % Description block formatting
+
+% Enhanced alignment commands
+\newcommand{\rightalign}[1]{\hfill #1} % Right alignment for dates
+\newcommand{\leftalign}[1]{#1} % Left alignment for content
+\newcommand{\centercontent}[1]{\begin{center}#1\end{center}} % Center alignment
+
+% Content integration commands for consistent formatting
+\newcommand{\bulletitem}[1]{\item #1} % Standard bullet item formatting
+\newcommand{\descriptiontext}[1]{#1} % Description text formatting
+\newcommand{\contactinfo}[1]{#1} % Contact information formatting
+\newcommand{\addressblock}[1]{#1} % Address block formatting
+
+% Phase 3 refinement: Enhanced character spacing and special character handling
+\newcommand{\letterspacing}[1]{\textls[200]{#1}} % Enhanced letter spacing
+\newcommand{\wordspacing}[1]{\textls[100]{#1}} % Enhanced word spacing
+\newcommand{\specialchar}[1]{\textsc{#1}} % Special character formatting
+\newcommand{\citationchar}[1]{\textsc{#1}} % Citation character formatting
+\newcommand{\unicodechar}[1]{\textsc{#1}} % Unicode character formatting
+
+% =============================================================================
+% DOCUMENT STRUCTURE
+% =============================================================================
+
+\begin{document}
+
+% =============================================================================
+% HEADER SECTION
+% =============================================================================
+
+% Name (left) and contact (right) on a single line, then address block
+\noindent\begin{headertabular}{\textwidth}
+  {\headername{Aaron Lorenzo Woods}} & alwoods@utexas.edu \contactsep aaronwoods.info \\
+\end{headertabular}
+\headervspace
+\noindent \institution{Department of Biomedical Engineering}\\
+\noindent \institution{Cockrell School of Engineering}\\
+\noindent \institution{The University of Texas at Austin}\\
+\noindent \institution{Austin, TX 78712}
+
+% =============================================================================
+% EDUCATION SECTION
+% =============================================================================
+
+\sectionheading{Education}
+
+% PhD entry
+\begin{contenttabular}{\textwidth}
+  \degreename{Ph.D. Biomedical Engineering} & \dateinfo{June 2026 (expected)}\\
+  \institution{University of Texas at Austin} & \dateinfo{GPA: 4.0}\\
+  \institution{Portfolio in Imaging Science} & \\
+\end{contenttabular}
+
+\contentvspace
+
+% BS entry
+\begin{contenttabular}{\textwidth}
+  \degreename{B.S. Engineering Leadership} & \dateinfo{December 2020}\\
+  \institution{University of Texas at El Paso (UTEP)} & \dateinfo{GPA: 3.46}\\
+  \institution{Minor in Commercial Music and Recording} & \\
+\end{contenttabular}
+
+% =============================================================================
+% PUBLICATIONS AND PATENTS SECTION
+% =============================================================================
+
+\sectionheading{Publications and Patents}
+
+{\citationtext{
+Niemeier, R., N. Schnoor, \authorname{A.L. Woods}, and J.D. Rogers, ``Calibration of liquid crystal variable retarders using a common-path interferometer and fit of a closed-form expression for the retardance curve,'' published to \journalname{Applied Optics}, October 2020.\\[\publicationvspace]
+``Theranostic Delivery System,'' \specialterm{Provisional Patent} Application, No.~63/442436, granted March~2,~2023. Inventors: B.~Malady, \authorname{A.L. Woods}, M.~Pogue, H.~Purani.\\[\publicationvspace]
+Engelmann, S.A., Tomar, A., \authorname{A.L. Woods}, Dunn, A.K. ``Pulse train gating to improve signal generation for in vivo two-photon fluorescence microscopy,'' published to \journalname{Neurophotonics}, October 2023.\\[\publicationvspace]
+Chu, D.Y., Ravelli, M.N., Faltersack, K.M., \authorname{A.L. Woods}, Almane, D., Li, Z., Sampene, E., Felton, E.A. (2023). ``Hypocarnitinemia and its effect on seizure control in adult patients with intractable epilepsy on the modified Atkins diet,'' submitted to \journalname{Frontiers in Nutrition, Nutrition and Metabolism}, September 29, 2023. Manuscript ID: 1304209.
+}}
+
+% =============================================================================
+% RESEARCH EXPERIENCE SECTION
+% =============================================================================
+
+\sectionheading{Research Experience}
+
+% Graduate Student Researcher
+\noindent\begin{contenttabular}{\textwidth}\jobtitle{Graduate Student Researcher}, \institution{University of Texas at Austin} & \daterange{2021}{Present}\\\end{contenttabular}
+\contentvspace
+\dateinfo{Department of Biomedical Engineering \contactsep Advisor: Dr. Andrew Dunn}
+\begin{itemize}
+  \item Developed optical imaging techniques and alignment of laser microscope systems
+  \item Investigating digital image processing, quantification, and visualization
+  \item Training on surgical craniotomies and animal care for neurovascular imaging
+  \item Conducted experiments, simulations, data analysis, and summarization of findings
+\end{itemize}
+
+% Graduate Rotation Student (Mia Markey)
+\noindent\begin{contenttabular}{\textwidth}\jobtitle{Graduate Rotation Student}, \institution{University of Texas at Austin} & \dateinfo{Summer 2021}\\\end{contenttabular}
+\contentvspace
+\dateinfo{Department of Biomedical Engineering \contactsep Advisor: Dr. Mia Markey}
+\begin{itemize}
+  \item Design of decision support system for breast cancer patients
+  \item Collaborated with researchers and clinicians to improve patient care
+  \item Investigated the role of emotions, biases, and heuristics in decision making
+\end{itemize}
+
+% Graduate Rotation Student (Evan Wang)
+\noindent\begin{contenttabular}{\textwidth}\jobtitle{Graduate Rotation Student}, \institution{University of Texas at Austin} & \dateinfo{Fall 2021}\\\end{contenttabular}
+\contentvspace
+\dateinfo{Department of Biomedical Engineering \contactsep Advisor: Dr. Evan Wang}
+\begin{itemize}
+  \item Conducted EEG data acquisition and analysis to analyze the brain while sleeping
+  \item Created SOP for fabricating state of the art dry electrodes for long recordings
+  \item Assisted with the design and testing of novel electrode materials
+\end{itemize}
+
+% Undergraduate Student Researcher (UTEP)
+\noindent\begin{contenttabular}{\textwidth}\jobtitle{Undergraduate Student Researcher}, \institution{University of Texas at El Paso} & \daterange{2019}{2020}\\\end{contenttabular}
+\contentvspace
+\dateinfo{CREaTE Lab \contactsep Advisor: Dr. Peter Golding}
+\begin{itemize}
+  \item Innovated on engineering education regarding ethics and leadership
+  \item Programmed advising software to assist with course recommendation
+  \item Optimized the advising process to better facilitate faculty and student interaction
+\end{itemize}
+
+% Undergraduate Student Researcher (UW-Madison ketogenic clinic)
+\noindent\begin{contenttabular}{\textwidth}\jobtitle{Undergraduate Student Researcher}, \institution{University of Wisconsin--Madison} & \dateinfo{Summer 2019}\\\end{contenttabular}
+\contentvspace
+\dateinfo{Adult Neurology Ketogenic Diet Therapy Clinic \contactsep Advisor: Dr. Elizabeth Felton}
+\begin{itemize}
+  \item Data visualization of patient data for clinical and dietary analysis
+  \item Managed HIPAA compliance, safety, and ethics for patient research
+  \item Shadowed doctor-patient relationship and treatment of epilepsy
+\end{itemize}
+
+% Undergraduate Student Researcher (UW-Madison Biomedical Optics Lab)
+\noindent\begin{contenttabular}{\textwidth}\jobtitle{Undergraduate Student Researcher}, \institution{University of Wisconsin--Madison} & \dateinfo{Summer 2018}\\\end{contenttabular}
+\contentvspace
+\dateinfo{Biomedical Optics Lab \contactsep Advisor: Dr. Jeremy Rogers}
+\begin{itemize}
+  \item Constructed an interferometer to measure phase delay
+  \item Programmed an automated calibration software for optical equipment
+  \item Inspected laboratory standards and practices for maintaining lab equipment
+\end{itemize}
+
+% =============================================================================
+% RESEARCH FUNDING SECTION
+% =============================================================================
+
+\sectionheading{Research Funding}
+
+% Use tabular to align funding and dates
+\begin{flexibletabular}{\textwidth}
+  \awardname{Ruth Kirschstein Imaging Science Fellowship}, \institution{National Institutes of Health} & \daterange{2021}{2022}\\
+  \multicolumn{2}{@{}l}{\;\$27,591 awarded over 1 year}\\[0.4ex]
+  \awardname{West Texas Fellowship}, \institution{The University of Texas at Austin} & \daterange{2022}{2024}\\
+  \multicolumn{2}{@{}l}{\;\$32,000 awarded over 1 year}\\[0.4ex]
+  \awardname{Cockrell School Fellowship}, \institution{The University of Texas at Austin} & \daterange{2024}{2025}\\
+  \multicolumn{2}{@{}l}{\;\$20,000 awarded over one year}\\[0.4ex]
+  \awardname{Thrust Fellowship Supplement}, \institution{The University of Texas at Austin} & \daterange{2021}{2025}\\
+  \multicolumn{2}{@{}l}{\;\$36,000 awarded over four years}\\[0.4ex]
+  \awardname{Dean's Fellowship Supplement}, \institution{The University of Texas at Austin} & \dateinfo{2021}\\
+  \multicolumn{2}{@{}l}{\;\$1,000 awarded over one year}\\
+\end{flexibletabular}
+
+% =============================================================================
+% ACADEMIC APPOINTMENTS SECTION
+% =============================================================================
+
+\sectionheading{Academic Appointments}
+
+\begin{flexibletabular}{\textwidth}
+  \jobtitle{Graduate Student Researcher}\newline \institution{University of Texas at Austin, Department of Biomedical Engineering} & \daterange{Summer 2021}{Present}\\[0.6ex]
+  \jobtitle{Undergraduate Student Researcher}\newline \institution{UTEP, Department of Engineering Education and Leadership} & \daterange{Fall 2019}{Spring 2020}\\[0.6ex]
+  \jobtitle{Undergraduate Student Researcher}\newline \institution{University of Wisconsin-Madison, Department of Biomedical Engineering} & \dateinfo{Summer 2018, 2019}\\[0.6ex]
+  \jobtitle{Undergraduate Teaching Assistant}\newline \institution{UTEP, Department of Engineering Education and Leadership} & \dateinfo{Spring 2018}\\
+\end{flexibletabular}
+
+% =============================================================================
+% TEACHING EXPERIENCE SECTION
+% =============================================================================
+
+\sectionheading{Teaching Experience}
+
+\jobtitle{Undergraduate Teaching Assistant}, \institution{University of Texas at El Paso}\\
+\dateinfo{Department of Engineering Education and Leadership \contactsep Design Nature} \rightalign{\dateinfo{Spring 2018}}
+\begin{itemize}
+  \item Coordinated the training of students to use a fabrication laboratory
+  \item Taught procedures on computer-aided design and simulation
+  \item Directed the development process to build working prototypes
+\end{itemize}
+
+% =============================================================================
+% HONORS & AWARDS SECTION
+% =============================================================================
+
+\sectionheading{Honors \& Awards}
+
+\begin{flexibletabular}{\textwidth}
+  \awardname{Marvin \& Ellie Selig Entrepreneurship Award}, \institution{Texas Innovation Center} & \dateinfo{2022}\\
+  \multicolumn{2}{@{}l}{\;Awarded \$2,500 to advance an entrepreneur effort by developing prototypes.}\\[0.4ex]
+  \awardname{Imaging Science Best Poster Award}, \institution{The University of Texas at Austin} & \dateinfo{2022}\\[0.4ex]
+  \awardname{Engineering Leadership Character Award}, \institution{University of Texas at El Paso} & \dateinfo{2020}\\
+  \multicolumn{2}{@{}l}{\;Awarded by staff, teachers, and the department chair to one graduating student who exhibits exceptional character.}\\[0.4ex]
+  \awardname{Hunt Startup Sponsorship}, \institution{Arrowhead Center} & \dateinfo{2020}\\[0.4ex]
+  \awardname{Bob \& Diane Malone Leadership Scholarship}, \institution{University of Texas at El Paso} & \daterange{2016}{2020}\\[0.4ex]
+  \awardname{Theta Delta Lambda Education Scholarship}, \institution{University of Texas at El Paso} & \dateinfo{2016}\\[0.4ex]
+  \awardname{Robert G Neill, Jr Scholarship}, \institution{University of Texas at El Paso} & \dateinfo{2016}\\[0.4ex]
+  \awardname{College of Engineering Dean's List}, \institution{University of Texas at El Paso} & \daterange{2016}{2018}\\
+\end{flexibletabular}
+
+% =============================================================================
+% POSTER PRESENTATIONS SECTION
+% =============================================================================
+
+\sectionheading{Poster Presentations}
+
+\begin{itemize}
+  \item \authorname{Aaron L. Woods}; Andrew K. Dunn. \dateinfo{Investigating Neurovascular Angiogenesis through Optical Imaging}. \institution{University of Texas at Austin T32 Retreat}, Austin, TX, USA, May~10,~2022
+  \item \authorname{Arron L. Woods}; Daniel Y. Chu; Michele N. Ravelli; Kelly Faltersack; Elizabeth Felton. \dateinfo{Carnitine Deficiencies: Clinical Insights for Ketogenic Diet Therapies}. \institution{UW- Madison SURE Poster Session}, Madison, WI, USA, July~31,~2019
+  \item \authorname{Arron L. Woods}; Jeremy D. Rogers. \dateinfo{Automated Calibration of Liquid Crystal Variable Retarder}. \institution{UW- Madison SURE Poster Session}, Madison, WI, USA, July~31,~2018
+  \item ESW-UTEP. Project Mine-Recycler: \dateinfo{Producing filament and 3D printed consumer goods from plastic waste}. \institution{Engineers for a Sustainable World 2019 Annual Conference Poster Session}, El Paso, TX, USA, April~5,~2019
+\end{itemize}
+
+% =============================================================================
+% ACADEMIC SERVICE SECTION
+% =============================================================================
+
+\sectionheading{Academic Service}
+
+\jobtitle{Chairman of the Board of Directors}, \institution{ICC Austin} \rightalign{\daterange{2022}{Present}}\\
+\dateinfo{501(c)(3) Non-Profit \contactsep ED: Ashleigh R. Lassiter}
+\begin{itemize}
+  \item Facilitated meetings to align groups with the strategic vision and mission
+  \item Guided discussions with various stakeholders on property management
+  \item Directed the board's initial strategic plan to improve staff retention and housing
+\end{itemize}
+
+\jobtitle{Black Graduate Student Agency Director}, \institution{Graduate Student Assembly} \rightalign{\daterange{2022}{Present}}\\
+\dateinfo{The University of Texas at Austin}
+\begin{itemize}
+  \item Built relationships with underrepresented groups committed to equality
+  \item Plan professional development, advocacy, and social events
+  \item Promote the interests of the graduate student population
+\end{itemize}
+
+\jobtitle{Community Organizer}, \institution{Sunrise Movement El Paso} \rightalign{\daterange{2020}{2021}}
+\begin{itemize}
+  \item Strategized solidarity and trust building with local allies
+  \item Planned and organized with other organizations for joint efforts
+  \item Established weekly virtual meetings for safe discussions
+\end{itemize}
+
+% Additional roles without bullet details
+\begin{flexibletabular}{\textwidth}
+  \jobtitle{Social Chair}, \institution{Green Team (UTEP)} & \dateinfo{2020}\\[0.4ex]
+  \jobtitle{Webmaster}, \institution{Engineers for a Sustainable World (UTEP)} & \daterange{2017}{2019}\\[0.4ex]
+  \jobtitle{College Recruiter}, \institution{University of Texas at El Paso} & \dateinfo{2018}\\[0.4ex]
+  \jobtitle{Volunteer Leader}, \institution{Young Life College (UTEP)} & \daterange{2016}{2018}\\
+\end{flexibletabular}
+
+% =============================================================================
+% PROFESSIONAL EXPERIENCE SECTION
+% =============================================================================
+
+\sectionheading{Professional Experience}
+
+\jobtitle{Co-founder}, \institution{Therosafe (Startup)} \rightalign{\daterange{2021}{Present}}\\
+As co-founder of a startup in the field of theranostics, I play a multifaceted role with a focus on operations. I contributed to the development of the company's concept, deliverables, and presentations, created visualizations to showcase the product, and applied to various competitions to clearly articulate the need we are solving.\\[0.8ex]
+
+\jobtitle{Community Outreach Specialist}, \institution{University of Texas at El Paso} \rightalign{\dateinfo{2020}}\\
+Experienced in developing and implementing marketing programs for outreach/recruitment. Assisted in curriculum and materials development. Evaluated program success and adjusted. Conducted program education and exhibit presentations.\\[0.8ex]
+
+% List of positions without descriptions
+\begin{flexibletabular}{\textwidth}
+  \jobtitle{Community Outreach Specialist}, \institution{University of Texas at El Paso} & \dateinfo{2020}\\[0.4ex]
+  \jobtitle{Project Analyst}, \institution{University of Texas at El Paso} & \daterange{2018}{2019}\\[0.4ex]
+  \jobtitle{Sound Engineer}, \institution{Beacon Hill Recording Studios, LLC} & \daterange{2018}{2019}\\[0.4ex]
+  \jobtitle{Student Ambassador}, \institution{Amazon \textbar{} Riddle and Bloom} & \daterange{2018}{2019}\\[0.4ex]
+  \jobtitle{Project Engineer}, \institution{Sonora Bank} & \dateinfo{2017}\\
+\end{flexibletabular}
+
+% =============================================================================
+% CONFERENCE PARTICIPATION SECTION
+% =============================================================================
+
+\sectionheading{Conference Participation}
+
+\begin{itemize}
+  \item \institution{Latinx Student Leadership Community Summit, Google} \rightalign{\dateinfo{2020}}
+  \item \institution{Neuroscience Initiative to Enhance Diversity Program, UC Davis} \rightalign{\dateinfo{2020}}
+  \item \institution{Social Change Leadership Summit, UTEP} \rightalign{\daterange{2019}{2020}}
+  \item \institution{Opportunities in Engineering Conference, UW-Madison} \rightalign{\dateinfo{2018}}
+\end{itemize}
+
+\end{document}
