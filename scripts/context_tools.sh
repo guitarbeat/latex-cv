@@ -31,21 +31,18 @@ validate_against_original() {
   mkdir -p "$TMP_DIR"
   # Original reference text (layout-preserving)
   pdftotext -layout "$REF_PDF" "$TMP_DIR/original.txt"
-  for m in latex pandoc-classic pandoc-alt pandoc-docxlike; do
-    pdf="$BUILD_DIR/$m/CV.pdf"
-    [ -f "$pdf" ] || continue
-    pdftotext -layout "$pdf" "$TMP_DIR/$m.txt"
-  done
-  echo "Computing unified diffs vs original (normalized)"
+  # LaTeX method PDF
+  pdf="$BUILD_DIR/latex/CV.pdf"
+  [ -f "$pdf" ] && pdftotext -layout "$pdf" "$TMP_DIR/latex.txt"
+  echo "Computing unified diff vs original (normalized)"
   # Normalize whitespace lines for a lighter diff
   for f in "$TMP_DIR"/*.txt; do
     awk '{gsub(/[ \t]+$/,"",$0); print}' "$f" > "$f.norm"
   done
-  for m in latex pandoc-classic pandoc-alt pandoc-docxlike; do
-    [ -f "$TMP_DIR/$m.txt.norm" ] || continue
-    echo "--- Diff: $m vs original ---"
-    diff -u "$TMP_DIR/original.txt.norm" "$TMP_DIR/$m.txt.norm" || true
-  done
+  if [ -f "$TMP_DIR/latex.txt.norm" ]; then
+    echo "--- Diff: latex vs original ---"
+    diff -u "$TMP_DIR/original.txt.norm" "$TMP_DIR/latex.txt.norm" || true
+  fi
   echo "Summarizing line counts"
   wc -l "$TMP_DIR"/*.txt 2>/dev/null || true
 }
