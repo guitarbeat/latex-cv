@@ -15,7 +15,10 @@ $(OUT)/latex:
 
 $(OUT)/latex/CV.pdf: $(LATEX_TEX) | $(OUT)/latex
 	xelatex -output-directory=$(OUT)/latex $(LATEX_TEX)
-	xelatex -output-directory=$(OUT)/latex $(LATEX_TEX)
+	@if grep -q "Rerun" $(OUT)/latex/CV.log; then \
+		echo "Rerunning XeLaTeX..." ; \
+		xelatex -output-directory=$(OUT)/latex $(LATEX_TEX) ; \
+	fi
 
 .PHONY: context extract validate
 context: extract validate
