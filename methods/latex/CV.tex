@@ -41,12 +41,19 @@
 % 
 
 % * Configure hyperlinks with modern settings
+\definecolor{darkblue}{rgb}{0.0, 0.0, 0.55} % * Accessible link color
 \hypersetup{
   colorlinks=true,
-  urlcolor=black,
+  urlcolor=darkblue,
   linkcolor=black,
   pdfpagemode=UseOutlines,
   unicode=true, % * Better Unicode support
+  pdftitle={Curriculum Vitae - Aaron Lorenzo Woods}, % * Metadata
+  pdfauthor={Aaron Lorenzo Woods}, % * Metadata
+  pdfsubject={Curriculum Vitae}, % * Metadata
+  pdfkeywords={CV, Resume, Biomedical Engineering, LaTeX}, % * Metadata
+  pdflang={en-US}, % * Accessibility: Language tag
+  pdfdisplaydoctitle=true, % * UX: Show title instead of filename
   pdfcreator={LaTeX}, % * Metadata
   pdfproducer={XeLaTeX}
 }
