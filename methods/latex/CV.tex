@@ -38,10 +38,15 @@
 % Map hard hyphen (U+2010) to ASCII hyphen to avoid missing glyphs
 \newunicodechar{‐}{-}
 
-% 
+% * Personal Information
+\newcommand{\myname}{Aaron Lorenzo Woods}
 
 % * Configure hyperlinks with modern settings
 \hypersetup{
+  pdftitle={CV - \myname},
+  pdfauthor={\myname},
+  pdflang={en-US},
+  pdfdisplaydoctitle=true,
   colorlinks=true,
   urlcolor=black,
   linkcolor=black,
@@ -70,12 +75,14 @@
 \setstretch{1.15} % Word-like line spacing
 \ifPDFTeX
   \newcommand{\sectionheading}[1]{%
+    \phantomsection\addcontentsline{toc}{section}{#1}%
     \vspace{1.2ex}%
     {\large\bfseries\MakeUppercase{#1}}\par\vspace{0.3ex}%
     {\color[gray]{0.6}\rule{0.98\linewidth}{0.3pt}}\vspace{0.6ex}%
   }
 \else
   \newcommand{\sectionheading}[1]{%
+    \phantomsection\addcontentsline{toc}{section}{#1}%
     \vspace{1.2ex}%
     {\large\bfseries{\SansHead \MakeUppercase{#1}}}\par\vspace{0.3ex}%
     {\color[gray]{0.6}\rule{0.98\linewidth}{0.3pt}}\vspace{0.6ex}%
@@ -96,7 +103,7 @@
   colspec={X[1,l] X[1,r]},
   column{2}={rightsep=0pt}
 }
-  {\textbf{Aaron Lorenzo Woods}} & \raggedleft alwoods@utexas.edu \;|\; aaronwoods.info \\
+  {\textbf{\myname}} & \raggedleft alwoods@utexas.edu \;|\; aaronwoods.info \\
 \end{tblr}
 \vspace{1.3ex}
 \noindent Department of Biomedical Engineering\\
