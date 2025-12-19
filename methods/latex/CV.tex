@@ -48,7 +48,11 @@
   pdfpagemode=UseOutlines,
   unicode=true, % * Better Unicode support
   pdfcreator={LaTeX}, % * Metadata
-  pdfproducer={XeLaTeX}
+  pdfproducer={XeLaTeX},
+  pdftitle={CV - Aaron Lorenzo Woods},
+  pdfauthor={Aaron Lorenzo Woods},
+  pdflang={en-US},
+  pdfdisplaydoctitle=true
 }
 
 % * Improve hyphenation and line breaking (arXiv-style)
@@ -70,12 +74,14 @@
 \setstretch{1.15} % Word-like line spacing
 \ifPDFTeX
   \newcommand{\sectionheading}[1]{%
+    \phantomsection\addcontentsline{toc}{section}{#1}%
     \vspace{1.2ex}%
     {\large\bfseries\MakeUppercase{#1}}\par\vspace{0.3ex}%
     {\color[gray]{0.6}\rule{0.98\linewidth}{0.3pt}}\vspace{0.6ex}%
   }
 \else
   \newcommand{\sectionheading}[1]{%
+    \phantomsection\addcontentsline{toc}{section}{#1}%
     \vspace{1.2ex}%
     {\large\bfseries{\SansHead \MakeUppercase{#1}}}\par\vspace{0.3ex}%
     {\color[gray]{0.6}\rule{0.98\linewidth}{0.3pt}}\vspace{0.6ex}%
