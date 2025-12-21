@@ -23,8 +23,16 @@
     \IfFontExistsTF{Arial}{\newfontfamily\SansHead{Arial}[BoldFont=Arial-BoldMT, ItalicFont=Arial-ItalicMT, Numbers=Lining]}{\newfontfamily\SansHead{TeX Gyre Heros}}%
   }
 \fi
-% * Modern table package (replaces tabular/tabular*) - 2021+
-\usepackage{tabularray} % * Modern, flexible table system with better width handling
+% * Optimized table package (replaces tabularray)
+\usepackage{tabularx} % * Faster compilation than tabularray
+% Define column types for 3:1 ratio (total 4 parts)
+% Standard X is 1/N of total width. For 2 columns, X is 0.5\linewidth.
+% Y (3 parts): Needs to be 3/4 \linewidth. So 1.5 * X.
+% Z (1 part): Needs to be 1/4 \linewidth. So 0.5 * X.
+% We add \raggedright/\raggedleft and \arraybackslash to handle alignment and preserve \\ behavior.
+\newcolumntype{Y}{>{\hsize=1.5\hsize\raggedright\arraybackslash}X}
+\newcolumntype{Z}{>{\hsize=0.5\hsize\raggedleft\arraybackslash}X}
+
 % * Modern URL handling - better line breaking
 \usepackage{xurl} % * Improved URL breaking for long hyperlinks
 \usepackage{hyperref}
@@ -91,13 +99,9 @@
 %-----------------------
 % Header
 % Name (left) and contact (right) on a single line, then address block
-\noindent\begin{tblr}{
-  width=\textwidth,
-  colspec={X[1,l] X[1,r]},
-  column{2}={rightsep=0pt}
-}
-  {\textbf{Aaron Lorenzo Woods}} & \raggedleft alwoods@utexas.edu \;|\; aaronwoods.info \\
-\end{tblr}
+\noindent\begin{tabularx}{\textwidth}{@{}X r@{}}
+  {\textbf{Aaron Lorenzo Woods}} & \begin{tabular}[t]{@{}r@{}}alwoods@utexas.edu \;|\; aaronwoods.info\end{tabular}
+\end{tabularx}
 \vspace{1.3ex}
 \noindent Department of Biomedical Engineering\\
 \noindent Cockrell School of Engineering\\
@@ -108,28 +112,20 @@
 \sectionheading{Education}
 
 % PhD entry
-\begin{tblr}{
-  width=\textwidth,
-  colspec={X[3,l] X[1,r]},
-  column{2}={rightsep=0pt}
-}
+\begin{tabularx}{\textwidth}{@{}Y Z@{}}
   \textbf{Ph.D. Biomedical Engineering} & \textit{June 2026 (expected)}\\
   University of Texas at Austin & \textit{GPA: 4.0}\\
   Portfolio in Imaging Science & \\
-\end{tblr}
+\end{tabularx}
 
 \vspace{0.6ex}
 
 % BS entry
-\begin{tblr}{
-  width=\textwidth,
-  colspec={X[3,l] X[1,r]},
-  column{2}={rightsep=0pt}
-}
+\begin{tabularx}{\textwidth}{@{}Y Z@{}}
   \textbf{B.S. Engineering Leadership} & \textit{December 2020}\\
   University of Texas at El Paso (UTEP) & \textit{GPA: 3.46}\\
   Minor in Commercial Music and Recording & \\
-\end{tblr}
+\end{tabularx}
 
 %-----------------------
 \sectionheading{Publications and Patents}
@@ -146,13 +142,9 @@ Niemeier, R., N. Schnoor, \textbf{A.L. Woods}, and J.D. Rogers, ``Calibration of
 \sectionheading{Research Experience}
 
 % Graduate Student Researcher
-\noindent\begin{tblr}{
-  width=\textwidth,
-  colspec={X[3,l] X[1,r]},
-  column{2}={rightsep=0pt}
-}
+\noindent\begin{tabularx}{\textwidth}{@{}Y Z@{}}
 \textbf{Graduate Student Researcher}, University of Texas at Austin & 2021 -- Present\\
-\end{tblr}
+\end{tabularx}
 \vspace{0.6ex}
 \textit{Department of Biomedical Engineering \;|\; Advisor: Dr. Andrew Dunn}
 \begin{itemize}
@@ -163,13 +155,9 @@ Niemeier, R., N. Schnoor, \textbf{A.L. Woods}, and J.D. Rogers, ``Calibration of
 \end{itemize}
 
 % Graduate Rotation Student (Mia Markey)
-\noindent\begin{tblr}{
-  width=\textwidth,
-  colspec={X[3,l] X[1,r]},
-  column{2}={rightsep=0pt}
-}
+\noindent\begin{tabularx}{\textwidth}{@{}Y Z@{}}
 \textbf{Graduate Rotation Student}, University of Texas at Austin & Summer~2021\\
-\end{tblr}
+\end{tabularx}
 \vspace{0.6ex}
 \textit{Department of Biomedical Engineering \;|\; Advisor: Dr. Mia Markey}
 \begin{itemize}
@@ -179,13 +167,9 @@ Niemeier, R., N. Schnoor, \textbf{A.L. Woods}, and J.D. Rogers, ``Calibration of
 \end{itemize}
 
 % Graduate Rotation Student (Evan Wang)
-\noindent\begin{tblr}{
-  width=\textwidth,
-  colspec={X[3,l] X[1,r]},
-  column{2}={rightsep=0pt}
-}
+\noindent\begin{tabularx}{\textwidth}{@{}Y Z@{}}
 \textbf{Graduate Rotation Student}, University of Texas at Austin & Fall~2021\\
-\end{tblr}
+\end{tabularx}
 \vspace{0.6ex}
 \textit{Department of Biomedical Engineering \;|\; Advisor: Dr. Evan Wang}
 \begin{itemize}
@@ -195,13 +179,9 @@ Niemeier, R., N. Schnoor, \textbf{A.L. Woods}, and J.D. Rogers, ``Calibration of
 \end{itemize}
 
 % Undergraduate Student Researcher (UTEP)
-\noindent\begin{tblr}{
-  width=\textwidth,
-  colspec={X[3,l] X[1,r]},
-  column{2}={rightsep=0pt}
-}
+\noindent\begin{tabularx}{\textwidth}{@{}Y Z@{}}
 \textbf{Undergraduate Student Researcher}, University of Texas at El Paso & 2019 -- 2020\\
-\end{tblr}
+\end{tabularx}
 \vspace{0.6ex}
 \textit{CREaTE Lab \;|\; Advisor: Dr. Peter Golding}
 \begin{itemize}
@@ -211,13 +191,9 @@ Niemeier, R., N. Schnoor, \textbf{A.L. Woods}, and J.D. Rogers, ``Calibration of
 \end{itemize}
 
 % Undergraduate Student Researcher (UW-Madison ketogenic clinic)
-\noindent\begin{tblr}{
-  width=\textwidth,
-  colspec={X[3,l] X[1,r]},
-  column{2}={rightsep=0pt}
-}
+\noindent\begin{tabularx}{\textwidth}{@{}Y Z@{}}
 \textbf{Undergraduate Student Researcher}, University of Wisconsin--Madison & Summer~2019\\
-\end{tblr}
+\end{tabularx}
 \vspace{0.6ex}
 \textit{Adult Neurology Ketogenic Diet Therapy Clinic \;|\; Advisor: Dr. Elizabeth Felton}
 \begin{itemize}
@@ -227,13 +203,9 @@ Niemeier, R., N. Schnoor, \textbf{A.L. Woods}, and J.D. Rogers, ``Calibration of
 \end{itemize}
 
 % Undergraduate Student Researcher (UW-Madison Biomedical Optics Lab)
-\noindent\begin{tblr}{
-  width=\textwidth,
-  colspec={X[3,l] X[1,r]},
-  column{2}={rightsep=0pt}
-}
+\noindent\begin{tabularx}{\textwidth}{@{}Y Z@{}}
 \textbf{Undergraduate Student Researcher}, University of Wisconsin--Madison & Summer~2018\\
-\end{tblr}
+\end{tabularx}
 \vspace{0.6ex}
 \textit{Biomedical Optics Lab \;|\; Advisor: Dr. Jeremy Rogers}
 \begin{itemize}
@@ -245,39 +217,29 @@ Niemeier, R., N. Schnoor, \textbf{A.L. Woods}, and J.D. Rogers, ``Calibration of
 %-----------------------
 \sectionheading{Research Funding}
 
-% Use modern tabularray to align funding and dates
-\begin{tblr}{
-  width=\textwidth,
-  colspec={X[3,l] X[1,r]},
-  column{2}={rightsep=0pt},
-  row{1,3,5,7,9}={belowsep=0.4ex}
-}
+% Use optimized tabularx to align funding and dates
+\begin{tabularx}{\textwidth}{@{}Y Z@{}}
   \textbf{Ruth Kirschstein Imaging Science Fellowship}, National Institutes of Health & 2021 -- 2022\\
-  \SetCell[c=2]{l} {\;\$27,591 awarded over 1 year}\\
+  \multicolumn{2}{@{}p{\textwidth}@{}}{\;\$27,591 awarded over 1 year}\\[0.4ex]
   \textbf{West Texas Fellowship}, The University of Texas at Austin & 2022 -- 2024\\
-  \SetCell[c=2]{l} {\;\$32,000 awarded over 1 year}\\
+  \multicolumn{2}{@{}p{\textwidth}@{}}{\;\$32,000 awarded over 1 year}\\[0.4ex]
   \textbf{Cockrell School Fellowship}, The University of Texas at Austin & 2024 -- 2025\\
-  \SetCell[c=2]{l} {\;\$20,000 awarded over one year}\\
+  \multicolumn{2}{@{}p{\textwidth}@{}}{\;\$20,000 awarded over one year}\\[0.4ex]
   \textbf{Thrust Fellowship Supplement}, The University of Texas at Austin & 2021 -- 2025\\
-  \SetCell[c=2]{l} {\;\$36,000 awarded over four years}\\
+  \multicolumn{2}{@{}p{\textwidth}@{}}{\;\$36,000 awarded over four years}\\[0.4ex]
   \textbf{Dean's Fellowship Supplement}, The University of Texas at Austin & 2021\\
-  \SetCell[c=2]{l} {\;\$1,000 awarded over one year}\\
-\end{tblr}
+  \multicolumn{2}{@{}p{\textwidth}@{}}{\;\$1,000 awarded over one year}\\[0.4ex]
+\end{tabularx}
 
 %-----------------------
 \sectionheading{Academic Appointments}
 
-\begin{tblr}{
-  width=\textwidth,
-  colspec={X[3,l] X[1,r]},
-  column{2}={rightsep=0pt},
-  row{1,2,3}={belowsep=0.6ex}
-}
-  \textbf{Graduate Student Researcher}\newline University of Texas at Austin, Department of Biomedical Engineering & Summer~2021 -- Present\\
-  \textbf{Undergraduate Student Researcher}\newline UTEP, Department of Engineering Education and Leadership & Fall~2019 -- Spring~2020\\
-  \textbf{Undergraduate Student Researcher}\newline University of Wisconsin-Madison, Department of Biomedical Engineering & Summer~2018, 2019\\
+\begin{tabularx}{\textwidth}{@{}Y Z@{}}
+  \textbf{Graduate Student Researcher}\newline University of Texas at Austin, Department of Biomedical Engineering & Summer~2021 -- Present\\[0.6ex]
+  \textbf{Undergraduate Student Researcher}\newline UTEP, Department of Engineering Education and Leadership & Fall~2019 -- Spring~2020\\[0.6ex]
+  \textbf{Undergraduate Student Researcher}\newline University of Wisconsin-Madison, Department of Biomedical Engineering & Summer~2018, 2019\\[0.6ex]
   \textbf{Undergraduate Teaching Assistant}\newline UTEP, Department of Engineering Education and Leadership & Spring~2018\\
-\end{tblr}
+\end{tabularx}
 
 %-----------------------
 \sectionheading{Teaching Experience}
@@ -293,23 +255,18 @@ Niemeier, R., N. Schnoor, \textbf{A.L. Woods}, and J.D. Rogers, ``Calibration of
 %-----------------------
 \sectionheading{Honors \& Awards}
 
-\begin{tblr}{
-  width=\textwidth,
-  colspec={X[3,l] X[1,r]},
-  column{2}={rightsep=0pt},
-  row{2,4,5,6,7,8,9}={belowsep=0.4ex}
-}
+\begin{tabularx}{\textwidth}{@{}Y Z@{}}
   \textbf{Marvin \& Ellie Selig Entrepreneurship Award}, Texas Innovation Center & 2022\\
-  \SetCell[c=2]{l} {\;Awarded \$2,500 to advance an entrepreneur effort by developing prototypes.}\\
-  \textbf{Imaging Science Best Poster Award}, The University of Texas at Austin & 2022\\
+  \multicolumn{2}{@{}p{\textwidth}@{}}{\;Awarded \$2,500 to advance an entrepreneur effort by developing prototypes.}\\[0.4ex]
+  \textbf{Imaging Science Best Poster Award}, The University of Texas at Austin & 2022\\[0.4ex]
   \textbf{Engineering Leadership Character Award}, University of Texas at El Paso & 2020\\
-  \SetCell[c=2]{l} {\;Awarded by staff, teachers, and the department chair to one graduating student who exhibits exceptional character.}\\
-  \textbf{Hunt Startup Sponsorship}, Arrowhead Center & 2020\\
-  \textbf{Bob \& Diane Malone Leadership Scholarship}, University of Texas at El Paso & 2016 -- 2020\\
-  \textbf{Theta Delta Lambda Education Scholarship}, University of Texas at El Paso & 2016\\
-  \textbf{Robert G Neill, Jr Scholarship}, University of Texas at El Paso & 2016\\
-  \textbf{College of Engineering Dean's List}, University of Texas at El Paso & 2016 -- 2018\\
-\end{tblr}
+  \multicolumn{2}{@{}p{\textwidth}@{}}{\;Awarded by staff, teachers, and the department chair to one graduating student who exhibits exceptional character.}\\[0.4ex]
+  \textbf{Hunt Startup Sponsorship}, Arrowhead Center & 2020\\[0.4ex]
+  \textbf{Bob \& Diane Malone Leadership Scholarship}, University of Texas at El Paso & 2016 -- 2020\\[0.4ex]
+  \textbf{Theta Delta Lambda Education Scholarship}, University of Texas at El Paso & 2016\\[0.4ex]
+  \textbf{Robert G Neill, Jr Scholarship}, University of Texas at El Paso & 2016\\[0.4ex]
+  \textbf{College of Engineering Dean's List}, University of Texas at El Paso & 2016 -- 2018\\[0.4ex]
+\end{tabularx}
 
 %-----------------------
 \sectionheading{Poster Presentations}
@@ -348,17 +305,12 @@ Niemeier, R., N. Schnoor, \textbf{A.L. Woods}, and J.D. Rogers, ``Calibration of
 \end{itemize}
 
 % Additional roles without bullet details
-\begin{tblr}{
-  width=\textwidth,
-  colspec={X[3,l] X[1,r]},
-  column{2}={rightsep=0pt},
-  row{1,2,3}={belowsep=0.4ex}
-}
-  \textbf{Social Chair}, Green Team (UTEP) & 2020\\
-  \textbf{Webmaster}, Engineers for a Sustainable World (UTEP) & 2017 -- 2019\\
-  \textbf{College Recruiter}, University of Texas at El Paso & 2018\\
+\begin{tabularx}{\textwidth}{@{}Y Z@{}}
+  \textbf{Social Chair}, Green Team (UTEP) & 2020\\[0.4ex]
+  \textbf{Webmaster}, Engineers for a Sustainable World (UTEP) & 2017 -- 2019\\[0.4ex]
+  \textbf{College Recruiter}, University of Texas at El Paso & 2018\\[0.4ex]
   \textbf{Volunteer Leader}, Young Life College (UTEP) & 2016 -- 2018\\
-\end{tblr}
+\end{tabularx}
 
 %-----------------------
 \sectionheading{Professional Experience}
@@ -370,18 +322,13 @@ As co-founder of a startup in the field of theranostics, I play a multifaceted r
 Experienced in developing and implementing marketing programs for outreach/recruitment. Assisted in curriculum and materials development. Evaluated program success and adjusted. Conducted program education and exhibit presentations.\\[0.8ex]
 
 % List of positions without descriptions
-\begin{tblr}{
-  width=\textwidth,
-  colspec={X[3,l] X[1,r]},
-  column{2}={rightsep=0pt},
-  row{1,2,3,4}={belowsep=0.4ex}
-}
-  \textbf{Community Outreach Specialist}, University of Texas at El Paso & 2020\\
-  \textbf{Project Analyst}, University of Texas at El Paso & 2018 -- 2019\\
-  \textbf{Sound Engineer}, Beacon Hill Recording Studios, LLC & 2018 -- 2019\\
-  \textbf{Student Ambassador}, Amazon \textbar{} Riddle and Bloom & 2018 -- 2019\\
+\begin{tabularx}{\textwidth}{@{}Y Z@{}}
+  \textbf{Community Outreach Specialist}, University of Texas at El Paso & 2020\\[0.4ex]
+  \textbf{Project Analyst}, University of Texas at El Paso & 2018 -- 2019\\[0.4ex]
+  \textbf{Sound Engineer}, Beacon Hill Recording Studios, LLC & 2018 -- 2019\\[0.4ex]
+  \textbf{Student Ambassador}, Amazon \textbar{} Riddle and Bloom & 2018 -- 2019\\[0.4ex]
   \textbf{Project Engineer}, Sonora Bank & 2017\\
-\end{tblr}
+\end{tabularx}
 
 %-----------------------
 \sectionheading{Conference Participation}
