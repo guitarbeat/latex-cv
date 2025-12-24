@@ -14,8 +14,7 @@ $(OUT)/latex:
 	mkdir -p $@
 
 $(OUT)/latex/CV.pdf: $(LATEX_TEX) | $(OUT)/latex
-	xelatex -output-directory=$(OUT)/latex $(LATEX_TEX)
-	xelatex -output-directory=$(OUT)/latex $(LATEX_TEX)
+	./scripts/build_latex.sh $(OUT)/latex $(LATEX_TEX)
 
 .PHONY: context extract validate
 context: extract validate
