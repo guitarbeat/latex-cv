@@ -13,9 +13,14 @@ latex: $(OUT)/latex/CV.pdf
 $(OUT)/latex:
 	mkdir -p $@
 
+# Optimization: Only run xelatex a second time if necessary (e.g. for cross-references).
+# This saves ~50% build time for simple changes.
 $(OUT)/latex/CV.pdf: $(LATEX_TEX) | $(OUT)/latex
 	xelatex -output-directory=$(OUT)/latex $(LATEX_TEX)
-	xelatex -output-directory=$(OUT)/latex $(LATEX_TEX)
+	@if grep -q "Rerun to get" $(OUT)/latex/CV.log; then \
+		echo "Rerunning xelatex to resolve references..."; \
+		xelatex -output-directory=$(OUT)/latex $(LATEX_TEX); \
+	fi
 
 .PHONY: context extract validate
 context: extract validate
