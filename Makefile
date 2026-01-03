@@ -14,8 +14,9 @@ $(OUT)/latex:
 	mkdir -p $@
 
 $(OUT)/latex/CV.pdf: $(LATEX_TEX) | $(OUT)/latex
-	xelatex -output-directory=$(OUT)/latex $(LATEX_TEX)
-	xelatex -output-directory=$(OUT)/latex $(LATEX_TEX)
+	# Optimization: Use latexmk to automatically handle dependencies and minimize recompilation passes.
+	# It replaces the previous unconditional double-run of xelatex.
+	latexmk -xelatex -output-directory=$(OUT)/latex -interaction=nonstopmode $(LATEX_TEX)
 
 .PHONY: context extract validate
 context: extract validate
