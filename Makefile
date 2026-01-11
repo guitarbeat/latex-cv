@@ -15,7 +15,8 @@ $(OUT)/latex:
 
 $(OUT)/latex/CV.pdf: $(LATEX_TEX) | $(OUT)/latex
 	xelatex -output-directory=$(OUT)/latex $(LATEX_TEX)
-	if grep -q "Rerun to get" $(OUT)/latex/CV.log || grep -q "Rerun LaTeX" $(OUT)/latex/CV.log || grep -q "rerunfilecheck Warning" $(OUT)/latex/CV.log; then \
+	# Check log for rerun requests and re-compile if necessary (combined grep for efficiency)
+	if grep -q -F -e "Rerun to get" -e "Rerun LaTeX" -e "rerunfilecheck Warning" $(OUT)/latex/CV.log; then \
 		xelatex -output-directory=$(OUT)/latex $(LATEX_TEX); \
 	fi
 
