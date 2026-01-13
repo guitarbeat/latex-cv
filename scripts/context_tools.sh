@@ -15,6 +15,15 @@ extract_from_docx() {
   if [ ! -f "$REF_DOCX" ]; then
     echo "Missing $REF_DOCX" >&2; return 1
   fi
+
+  # Optimization: Check if targets exist and are newer than source
+  if [ -f "$OUT_DIR/original.md" ] && [ -f "$OUT_DIR/original.txt" ] && \
+     [ "$OUT_DIR/original.md" -nt "$REF_DOCX" ] && \
+     [ "$OUT_DIR/original.txt" -nt "$REF_DOCX" ]; then
+    echo "Extraction up to date."
+    return 0
+  fi
+
   echo "Extracting DOCX -> Markdown and text"
   pandoc "$REF_DOCX" -t markdown -o "$OUT_DIR/original.md"
   pandoc "$REF_DOCX" -t plain    -o "$OUT_DIR/original.txt"
@@ -30,7 +39,11 @@ validate_against_original() {
   echo "Extracting text from method PDFs"
   mkdir -p "$TMP_DIR"
   # Original reference text (layout-preserving)
-  pdftotext -layout "$REF_PDF" "$TMP_DIR/original.txt"
+  local orig_txt="$TMP_DIR/original.txt"
+  # Optimization: Cache original PDF text extraction
+  if [ ! -f "$orig_txt" ] || [ "$REF_PDF" -nt "$orig_txt" ]; then
+    pdftotext -layout "$REF_PDF" "$orig_txt"
+  fi
   # LaTeX method PDF
   pdf="$BUILD_DIR/latex/CV.pdf"
   [ -f "$pdf" ] && pdftotext -layout "$pdf" "$TMP_DIR/latex.txt"
