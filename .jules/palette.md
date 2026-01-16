@@ -1,9 +1,3 @@
-# Palette Journal
-
-## 2026-01-08 - Accessible PDF Metadata & Links
-**Learning:** In LaTeX documents (like CVs), visual structure does not equal accessibility. `\href` and `\hypersetup` metadata are critical for screen readers and searchability, even if the visual output (black text) remains unchanged. `pdfinfo` is a vital tool for verifying "invisible" UX.
-**Action:** Always verify `pdftitle`, `pdflang` (for screen readers), and clickable `\href` links in LaTeX templates, ensuring `colorlinks=true, linkcolor=black` maintains design integrity.
-
-## 2026-01-12 - PDF Outline and Navigation
-**Learning:** Custom section commands in LaTeX (like `\sectionheading`) do not generate PDF bookmarks by default, making navigation difficult for screen readers and reviewers. Adding `\phantomsection` and `\addcontentsline` manually is required.
-**Action:** When creating custom headings in LaTeX, always pair them with PDF bookmark generation code and verify using `*.out` files.
+## 2026-01-16 - [PDF Metadata Accessibility]
+**Learning:** `pdfinfo` is insufficient for verifying PDF viewer preferences like `pdfdisplaydoctitle` and `pdfstartview`. These settings reside in the PDF Catalog dictionary and, if the PDF is compressed (standard for `xelatex`), cannot be verified via simple `grep` or `strings` checks. The most reliable verification in a headless environment is checking the `.log` file for package confirmation or using advanced tools like `qpdf` (if available) to uncompress the file.
+**Action:** When implementing PDF accessibility features, verify implementation by checking the LaTeX build logs for confirmation from packages like `hyperref`, rather than relying solely on post-build binary inspection.
