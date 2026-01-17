@@ -7,3 +7,7 @@
 ## 2026-01-12 - PDF Outline and Navigation
 **Learning:** Custom section commands in LaTeX (like `\sectionheading`) do not generate PDF bookmarks by default, making navigation difficult for screen readers and reviewers. Adding `\phantomsection` and `\addcontentsline` manually is required.
 **Action:** When creating custom headings in LaTeX, always pair them with PDF bookmark generation code and verify using `*.out` files.
+
+## 2026-01-17 - [Enhanced PDF Initial View Experience]
+**Learning:** Default PDF behavior often ignores the document title and start zoom, leading to poor initial impressions (e.g. filename in title bar, tiny zoom).
+**Action:** Always set `pdfdisplaydoctitle=true` and `pdfstartview=FitH` in LaTeX `\hypersetup` to ensure professional presentation and better accessibility.
