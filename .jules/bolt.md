@@ -5,3 +5,7 @@
 ## 2024-05-23 - [Optimize XeLaTeX Fonts]
 **Learning:** `xelatex` attempts to generate font metrics (`mktextfm`) for missing fonts (like Calibri or Arial on Linux) which can significantly slow down the build (up to 40% slower on cold builds). Setting `MKTEXTFM=0` prevents this futile attempt without breaking the build (assuming fallback fonts are handled in LaTeX).
 **Action:** When running `xelatex` in CI/CD or Linux environments where proprietary fonts might be missing, set `MKTEXTFM=0` to speed up the build.
+
+## 2026-01-22 - [Script Caching]
+**Learning:** Expensive data extraction tools like `pandoc` and `pdftotext` in shell scripts often run unconditionally, slowing down the dev loop. Timestamp-based caching (checking if output is newer than input with `-nt`) is a simple, dependency-free way to eliminate this overhead.
+**Action:** Always wrap expensive file processing commands in `if [ ! -f out ] || [ src -nt out ];` blocks in shell scripts.
