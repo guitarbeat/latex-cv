@@ -7,3 +7,7 @@
 ## 2026-01-12 - PDF Outline and Navigation
 **Learning:** Custom section commands in LaTeX (like `\sectionheading`) do not generate PDF bookmarks by default, making navigation difficult for screen readers and reviewers. Adding `\phantomsection` and `\addcontentsline` manually is required.
 **Action:** When creating custom headings in LaTeX, always pair them with PDF bookmark generation code and verify using `*.out` files.
+
+## 2024-05-22 - Missing Top-Level Navigation in generated PDFs
+**Learning:** While LaTeX generates bookmarks for sections automatically, the document header (Contact Info) is often excluded from the outline, forcing users to scroll back up manually.
+**Action:** Always manually add `\phantomsection` and `\addcontentsline{toc}{section}{...}` for the document title/header to ensure full keyboard/bookmark navigability.
