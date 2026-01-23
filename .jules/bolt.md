@@ -9,3 +9,7 @@
 ## 2026-01-14 - [Cache Expensive Extractions]
 **Learning:** Utility scripts that perform heavy conversions (like `pandoc` or `pdftotext`) often re-run redundantly. Implementing simple timestamp checks (using `-nt` in bash) can significantly speed up developer workflows by skipping unnecessary work.
 **Action:** Always check if the output is newer than the input before running expensive conversion commands in shell scripts.
+
+## 2026-01-23 - [Optimize Shell Script Processing]
+**Learning:** Shell loops iterating over globs (like `*.txt`) in temporary directories can be dangerous and inefficient if the directory contains stale files. Targeted processing with timestamp-based caching avoids redundant work.
+**Action:** Replace wildcard loops with explicit file processing and timestamp checks (`-nt`) in build/validation scripts.
