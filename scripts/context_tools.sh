@@ -56,9 +56,18 @@ validate_against_original() {
 
   echo "Computing unified diff vs original (normalized)"
   # Normalize whitespace lines for a lighter diff
-  for f in "$TMP_DIR"/*.txt; do
-    awk '{gsub(/[ \t]+$/,"",$0); print}' "$f" > "$f.norm"
-  done
+  normalize_if_needed() {
+    local src="$1"
+    local dst="$src.norm"
+    if [ -f "$src" ]; then
+      if [ ! -f "$dst" ] || [ "$src" -nt "$dst" ]; then
+        awk '{gsub(/[ \t]+$/,"",$0); print}' "$src" > "$dst"
+      fi
+    fi
+  }
+
+  normalize_if_needed "$TMP_DIR/original.txt"
+  normalize_if_needed "$TMP_DIR/latex.txt"
   if [ -f "$TMP_DIR/latex.txt.norm" ]; then
     echo "--- Diff: latex vs original ---"
     diff -u "$TMP_DIR/original.txt.norm" "$TMP_DIR/latex.txt.norm" || true
