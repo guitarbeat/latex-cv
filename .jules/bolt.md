@@ -5,3 +5,7 @@
 ## 2024-05-23 - [Optimize XeLaTeX Fonts]
 **Learning:** `xelatex` attempts to generate font metrics (`mktextfm`) for missing fonts (like Calibri or Arial on Linux) which can significantly slow down the build (up to 40% slower on cold builds). Setting `MKTEXTFM=0` prevents this futile attempt without breaking the build (assuming fallback fonts are handled in LaTeX).
 **Action:** When running `xelatex` in CI/CD or Linux environments where proprietary fonts might be missing, set `MKTEXTFM=0` to speed up the build.
+
+## 2026-01-20 - [Optimize Tooling Scripts]
+**Learning:** Helper scripts often re-run expensive operations (like `pandoc` or `pdftotext`) even when outputs are fresh. Bash's `-nt` (newer than) operator is a simple, dependency-free way to implement caching in shell scripts.
+**Action:** Before running expensive file transformations in scripts, always check if the output exists and is newer than the input.

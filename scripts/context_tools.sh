@@ -15,6 +15,13 @@ extract_from_docx() {
   if [ ! -f "$REF_DOCX" ]; then
     echo "Missing $REF_DOCX" >&2; return 1
   fi
+
+  if [ -f "$OUT_DIR/original.md" ] && [ "$OUT_DIR/original.md" -nt "$REF_DOCX" ] && \
+     [ -f "$OUT_DIR/original.txt" ] && [ "$OUT_DIR/original.txt" -nt "$REF_DOCX" ]; then
+    echo "Caching: DOCX extraction skipped (targets up to date)"
+    return 0
+  fi
+
   echo "Extracting DOCX -> Markdown and text"
   pandoc "$REF_DOCX" -t markdown -o "$OUT_DIR/original.md"
   pandoc "$REF_DOCX" -t plain    -o "$OUT_DIR/original.txt"
@@ -24,16 +31,31 @@ validate_against_original() {
   if [ ! -f "$REF_PDF" ]; then
     echo "Missing $REF_PDF" >&2; return 1
   fi
-  if ! command -v pdftotext >/dev/null 2>&1; then
-    echo "pdftotext not found" >&2; return 1
-  fi
+
   echo "Extracting text from method PDFs"
   mkdir -p "$TMP_DIR"
+
   # Original reference text (layout-preserving)
-  pdftotext -layout "$REF_PDF" "$TMP_DIR/original.txt"
+  local original_txt="$TMP_DIR/original.txt"
+  if [ -f "$original_txt" ] && [ "$original_txt" -nt "$REF_PDF" ]; then
+    echo "Caching: Original PDF extraction skipped"
+  else
+    if ! command -v pdftotext >/dev/null 2>&1; then echo "pdftotext not found" >&2; return 1; fi
+    pdftotext -layout "$REF_PDF" "$original_txt"
+  fi
+
   # LaTeX method PDF
   pdf="$BUILD_DIR/latex/CV.pdf"
-  [ -f "$pdf" ] && pdftotext -layout "$pdf" "$TMP_DIR/latex.txt"
+  local latex_txt="$TMP_DIR/latex.txt"
+  if [ -f "$pdf" ]; then
+    if [ -f "$latex_txt" ] && [ "$latex_txt" -nt "$pdf" ]; then
+      echo "Caching: LaTeX PDF extraction skipped"
+    else
+      if ! command -v pdftotext >/dev/null 2>&1; then echo "pdftotext not found" >&2; return 1; fi
+      pdftotext -layout "$pdf" "$latex_txt"
+    fi
+  fi
+
   echo "Computing unified diff vs original (normalized)"
   # Normalize whitespace lines for a lighter diff
   for f in "$TMP_DIR"/*.txt; do
