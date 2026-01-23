@@ -15,6 +15,13 @@ extract_from_docx() {
   if [ ! -f "$REF_DOCX" ]; then
     echo "Missing $REF_DOCX" >&2; return 1
   fi
+
+  # Cache check: Only run pandoc if source changed
+  if [ -f "$OUT_DIR/original.md" ] && [ "$OUT_DIR/original.md" -nt "$REF_DOCX" ] && \
+     [ -f "$OUT_DIR/original.txt" ] && [ "$OUT_DIR/original.txt" -nt "$REF_DOCX" ]; then
+    return 0
+  fi
+
   echo "Extracting DOCX -> Markdown and text"
   pandoc "$REF_DOCX" -t markdown -o "$OUT_DIR/original.md"
   pandoc "$REF_DOCX" -t plain    -o "$OUT_DIR/original.txt"
@@ -27,17 +34,31 @@ validate_against_original() {
   if ! command -v pdftotext >/dev/null 2>&1; then
     echo "pdftotext not found" >&2; return 1
   fi
-  echo "Extracting text from method PDFs"
+
   mkdir -p "$TMP_DIR"
+
   # Original reference text (layout-preserving)
-  pdftotext -layout "$REF_PDF" "$TMP_DIR/original.txt"
+  if [ ! -f "$TMP_DIR/original.txt" ] || [ "$REF_PDF" -nt "$TMP_DIR/original.txt" ]; then
+    echo "Extracting text from original PDF..."
+    pdftotext -layout "$REF_PDF" "$TMP_DIR/original.txt"
+  fi
+
   # LaTeX method PDF
   pdf="$BUILD_DIR/latex/CV.pdf"
-  [ -f "$pdf" ] && pdftotext -layout "$pdf" "$TMP_DIR/latex.txt"
+  if [ -f "$pdf" ]; then
+    if [ ! -f "$TMP_DIR/latex.txt" ] || [ "$pdf" -nt "$TMP_DIR/latex.txt" ]; then
+      echo "Extracting text from built PDF..."
+      pdftotext -layout "$pdf" "$TMP_DIR/latex.txt"
+    fi
+  fi
+
   echo "Computing unified diff vs original (normalized)"
   # Normalize whitespace lines for a lighter diff
   for f in "$TMP_DIR"/*.txt; do
-    awk '{gsub(/[ \t]+$/,"",$0); print}' "$f" > "$f.norm"
+    # Only normalize if source txt is newer or norm is missing
+    if [ ! -f "$f.norm" ] || [ "$f" -nt "$f.norm" ]; then
+      awk '{gsub(/[ \t]+$/,"",$0); print}' "$f" > "$f.norm"
+    fi
   done
   if [ -f "$TMP_DIR/latex.txt.norm" ]; then
     echo "--- Diff: latex vs original ---"

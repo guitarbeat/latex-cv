@@ -10,11 +10,11 @@ Austin, TX 78712
 
 **EDUCATION**
 
-**Ph.D. Biomedical Engineering** June 2026 *(expected)*
+**Ph.D. Biomedical Engineering** June 2027 *(expected)*
 
-University of Texas at Austin GPA: 4.0
+University of Texas at Austin GPA: 3.74
 
-Portfolio in Imaging Science
+Coursework Complete \| Portfolio in Imaging Science
 
 **B.S. Engineering Leadership** December 2020
 
@@ -37,11 +37,26 @@ Engelmann, S.A., Tomar, A., **Woods, A.L.,** Dunn, A.K. "Pulse train
 gating to improve signal generation for in vivo two-photon fluorescence
 microscopy," published to **Neurophotonics,** October 2023.
 
-Chu, D.Y., Ravelli, M.N., Faltersack, K.M., **Woods, A.L.,** Almane, D.,
-Li, Z., Sampene, E., Felton, E.A. (2023). "Hypocarnitinemia and its
+Chu, D.Y., Ravelli, M.N., Faltersack, K.M., **Woods, A.L.**, Almane, D.,
+Li, Z., Sampene, E., Felton, E.A. (2024). \"Hypocarnitinemia and its
 effect on seizure control in adult patients with intractable epilepsy on
-the modified Atkins diet," submitted to **Frontiers in Nutrition,
-Nutrition and Metabolism**, September 29, 2023. Manuscript ID: 1304209.
+the modified Atkins diet,\" **Frontiers in Nutrition,** Vol. 11, Article
+1304209. <https://doi.org/10.3389/fnut.2023.1304209>, 2024
+
+Tomar, A., Engelmann, S.A., **Woods, A.L.,** Dunn, A.K. \"Non-degenerate
+two-photon imaging of deep rodent cortex using indocyanine green in the
+water absorption window,\" published to **Biomedical Optics Express,**
+2024.
+
+Mihelic, S.A., Engelmann, S.A., Sadr, M., Jafari, C.Z., Zhou, A.,
+**Woods, A.L.,** Williamson, M.R., Jones, T.A., Dunn, A.K.
+\"Microvascular plasticity in mouse stroke model recovery: Anatomy
+statistics, dynamics measured by longitudinal in vivo two-photon
+angiography, network vectorization,\" published to J**ournal of Cerebral
+Blood Flow & Metabolism,** 2024
+
+**\
+**
 
 **RESEARCH EXPERIENCE**
 
@@ -50,54 +65,70 @@ Present
 
 Department of Biomedical Engineering \| *Advisor: Dr. Andrew Dunn*
 
-- Developed optical imaging techniques and alignment of laser microscope
-  systems
+Coursework Complete \| Advanced to Candidacy
 
-- Investigating digital image processing, quantification, and
-  visualization
+-   Investigating VEGF-mediated angiogenesis and stroke recovery using
+    advanced two-photon microscopy
 
-- Training on surgical craniotomies and animal care for neurovascular
-  imaging
+-   Developed optical imaging techniques and laser microscope alignment
+    protocols
 
-- Conducted experiments, simulations, data analysis, and summarization
-  of findings
+-   Advanced digital image processing, automated vascular network
+    vectorization, and quantification methods
+
+-   Training on surgical craniotomies and animal care for neurovascular
+    imaging protocols
+
+-   Collaborating with Dr. Evan Wang, Shweta Pawar, and lab members on
+    multi-institutional research projects
+
+-   Serve as IACUC Protocol Manager (AUP-2023-00274)
+
+-   Co-author on JCBFM 2024 publication on microvascular plasticity in
+    mouse stroke model recovery
 
 **Graduate Rotation Student,** University of Texas at Austin Summer 2021
 
 Department of Biomedical Engineering \| *Advisor: Dr. Mia Markey*
 
-- Design of decision support system for breast cancer patients
+-   Design of decision support system for breast cancer patients
 
-- Collaborated with researchers and clinicians to improve patient care
+-   Collaborated with researchers and clinicians to improve patient care
 
-- Investigated the role of emotions, biases, and heuristics in decision
-  making
+-   Investigated the role of emotions, biases, and heuristics in
+    decision making
 
 **Graduate Rotation Student,** University of Texas at Austin Fall 2021
 
 Department of Biomedical Engineering \| *Advisor: Dr. Evan Wang*
 
-- Conducted EEG data acquisition and analysis to analyze the brain while
-  sleeping
+-   Conducted EEG data acquisition and analysis to analyze the brain
+    while sleeping
 
-- Created SOP for fabricating state of the art dry electrodes for long
-  recordings
+-   Created SOP for fabricating state of the art dry electrodes for long
+    recordings
 
-- Assisted with the design and testing of novel electrode materials
-
-**\**
+-   Assisted with the design and testing of novel electrode materials
 
 **Undergraduate Student Researcher,** University of Texas at El Paso
 2019 -- 2020
 
 Create Lab \| *Advisor: Dr. Peter Golding*
 
-- Innovated on engineering education regarding ethics and leadership
+-   Innovated on engineering education research regarding ethics and
+    leadership principles
 
-- Programmed advising software to assist with course recommendation
+-   Programmed advising software to optimize course recommendation
+    systems
 
-- Optimized the advising process to better facilitate faculty and
-  student
+-   Teaching Assistant for Design Nature course, guiding students in
+    bio-inspired prototype development
+
+-   Selected for six-month extension contributing to four-year
+    engineering business curriculum development
+
+-   Continued involvement as E-Lead Strategic Alumni Advisory Group
+    member
 
 **Undergraduate Student Researcher,** University of Wisconsin-Madison
 Summer 2019
@@ -105,52 +136,71 @@ Summer 2019
 Adult Neurology Ketogenic Diet Therapy Clinic \| *Advisor: Dr. Elizabeth
 Felton*
 
-- Data visualization of patient data for clinical and dietary analysis
+-   Conducted clinical research on carnitine deficiencies in epilepsy
+    patients on ketogenic diet therapy
 
-- Managed HIPAA compliance, safety, and ethics for patient research
+-   Developed data visualization tools for clinical and dietary patient
+    data analysis
 
-- Shadowed doctor-patient relationship and treatment of epilepsy
+-   Managed HIPAA compliance, safety, and ethics protocols for patient
+    research
+
+-   Shadowed doctor-patient relationships and epilepsy treatment
+    methodologies
+
+-   Co-author on Frontiers in Nutrition 2024 publication on
+    hypocarnitinemia and seizure control
 
 **Undergraduate Student Researcher,** University of Wisconsin-Madison
 Summer 2018
 
 Biomedical Optics Lab \| *Advisor: Dr. Jeremy Rogers*
 
-- Constructed an interferometer to measure phase delay
+-   Constructed functional interferometer for precise phase delay
+    measurements
 
-- Programmed an automated calibration software for optical equipment
+-   Programmed automated calibration software for optical equipment
+    characterization
 
-- Inspected laboratory standards and practices for maintaining lab
+-   Established laboratory standards and practices for maintaining
+    precision optical equipment
+
+**\
+**
 
 **RESEARCH FUNDING**
 
 **Ruth Kirchstein Imaging Science Fellowship,** National Institutes of
 Health 2021 -- 2022
 
-- \$27,591 awarded over 1 year
+-   \$27,591 awarded over 1 year
 
 **West Texas Fellowship,** The University of Texas at Austin 2022 --
-2024
+2023
 
-- \$32,000 awarded over 1 year
+-   \$32,000 awarded over 1 year
 
-**Cockrell School Fellowship**, The University of Texas at Austin 2024
--- 2025
+**Cockrell School Fellowship**, The University of Texas at Austin 2023
+-- 2024
 
-- \$20,000 awarded over one year
+-   \$20,000 awarded over one year
 
 **Thrust Fellowship Supplement,** The University of Texas at Austin 2021
--- 2025
+-- 2024
 
-- \$36,000 awarded over four years
+-   \$9,000 annually (4 years)
 
 **Dean's Fellowship Supplement,** The University of Texas at Austin 2021
 
-- \$1,000 awarded over one year
+-   \$1,000 awarded over one year
+
+**\
+**
 
 **ACADEMIC APPOINTMENTS**
 
-**Graduate Student Researcher** Summer 2021 -- Present
+**Graduate Teaching Assistant / Graduate Research Assistant** Summer
+2021 -- Present
 
 University of Texas at Austin, Department of Biomedical Engineering
 
@@ -167,104 +217,77 @@ Engineering
 
 UTEP, Department of Engineering Education and Leadership
 
-**TEACHING EXPERIENCE**
-
-**Undergraduate Teaching Assistant,** University of Texas at El Paso
-Spring 2018
-
-Department of Engineering Education and Leadership \| *Design Nature*
-
-- Coordinated the trainings of students to use a fabrication laboratory
-
-- Taught procedures on computer-aided design and simulation
-
-- Directed the development process to build working prototypes
-
 **HONORS & AWARDS**
 
-**Texas Health Catalyst Finalist,** Dell Medical Center 2023
+-   **Texas Health Catalyst Finalist,** Dell Medical Center 2023
 
-Awarded Industry Mentorship to Commercialize a Product.
+    -   Awarded Industry Mentorship to Commercialize a Product.
 
-**Marvin & Ellie Selig Entrepreneurship Award,** Texas Innovation Center
-2022
+-   **Marvin & Ellie Selig Entrepreneurship Award,** Texas Innovation
+    Center 2022
 
-Awarded \$2,500 to advance an entrepreneur effort by developing
-prototypes.
+    -   Awarded \$2,500 to advance an entrepreneur effort by developing
+        prototypes.
 
-**Imaging Science Best Poster Award,** The University of Texas at Austin
-2022
+-   **Imaging Science Best Poster Award,** The University of Texas at
+    Austin 2022
 
-**Engineering Leadership Character Award,** University of Texas at El
-Paso 2020
+-   **Engineering Leadership Character Award,** University of Texas at
+    El Paso 2020
 
-Awarded by department to one graduating student with exceptional
-character.
+    -   Awarded by department to one graduating student with exceptional
+        character.
 
-**Hunt Startup Sponsorship,** Arrowhead Center 2020
+-   **Hunt Startup Sponsorship,** Arrowhead Center 2020
 
-**Bob & Diane Malone Leadership Scholarship** University of Texas at El
-Paso 2016 -- 2020
+-   **Bob & Diane Malone Leadership Scholarship** University of Texas at
+    El Paso 2016 -- 2020
 
-**Theta Delta Lambda Education Scholarship,** University of Texas at El
-Paso 2016
+-   **Theta Delta Lambda Education Scholarship,** University of Texas at
+    El Paso 2016
 
-**Robert G Neill, Jr Scholarship,** University of Texas at El Paso 2016
+-   **Robert G Neill, Jr Scholarship,** University of Texas at El Paso
+    2016
 
-**College of Engineering Dean's List,** University of Texas at El Paso
-2016 -- 2018
+-   **College of Engineering Dean's List,** University of Texas at El
+    Paso 2016 -- 2018
+
+**\
+**
 
 **POSTER PRESENTATIONS**
 
-- Aaron L. Woods; Andrew K. Dunn. **Investigating Neurovascular
-  Angiogenesis through Optical Imaging.** University of Texas at Austin
-  T32 Retreat, Austin, TX, USA, May 10, 2022
+-   Aaron L. Woods; Andrew K. Dunn. **Investigating Neurovascular
+    Angiogenesis through Optical Imaging.** University of Texas at
+    Austin T32 Retreat, Austin, TX, USA, May 10, 2022
 
-- Arron L. Woods; Daniel Y. Chu; Michele N. Ravelli; Kelly Faltersack;
-  Elizabeth Felton. **Carnitine Deficiencies: Clinical Insights for
-  Ketogenic Diet Therapies.** UW- Madison SURE Poster Session, Madison,
-  WI, USA, July 31, 2019
+-   Arron L. Woods; Daniel Y. Chu; Michele N. Ravelli; Kelly Faltersack;
+    Elizabeth Felton. **Carnitine Deficiencies: Clinical Insights for
+    Ketogenic Diet Therapies.** UW- Madison SURE Poster Session,
+    Madison, WI, USA, July 31, 2019
 
-- Arron L. Woods; Jeremy D. Rogers. **Automated Calibration of Liquid
-  Crystal Variable Retarder**. UW- Madison SURE Poster Session, Madison,
-  WI, USA, July 31, 2018
+-   Arron L. Woods; Jeremy D. Rogers. **Automated Calibration of Liquid
+    Crystal Variable Retarder**. UW- Madison SURE Poster Session,
+    Madison, WI, USA, July 31, 2018
 
-- ESW-UTEP. Project Mine-Rcycler: **Producing filament and 3D printed
-  consumer goods from plastic waste.** Engineers for a Sustainable World
-  2019 Annual Conference Poster Session, El Paso, TX, USA, April 5, 2019
+-   ESW-UTEP. Project Mine-Rcycler: **Producing filament and 3D printed
+    consumer goods from plastic waste.** Engineers for a Sustainable
+    World 2019 Annual Conference Poster Session, El Paso, TX, USA, April
+    5, 2019
 
 **ACADEMIC SERVICE**
 
+**NASCO Board Member, North American Students of Cooperation** 2024 --
+2026
+
 **Chairman of the Board of Directors,** ICC Austin 2022 -- Present
-
-501(c)(3) Non-Profit \| *ED: Ashleigh R. Lassiter*
-
-- Facilitated meetings to align groups with the strategic vision and
-  mission.
-
-- Guided discussions with various stakeholders on property management.
-
-- Directed the board\'s initial strategic plan to improve staff
-  retention and housing.
 
 **Black Graduate Student Agency Director,** Graduate Student Assembly
 2022 -- Present
 
 The University of Texas at Austin
 
-- Built relationships with underrepresented groups committed to equality
-
-- Plan professional development, advocacy, and social events.
-
-- Promote the interests of the graduate student population
-
 **Community Organizer,** Sunrise Movement El Paso 2020 -- 2021
-
-- Strategized solidarity and trust building with local allies
-
-- Plan and organize with other organizations for joint efforts
-
-- Established weekly virtual meetings for safe discussions
 
 **Social Chair,** Green Team (UTEP) 2020
 
@@ -279,69 +302,64 @@ The University of Texas at Austin
 **Sr. Intern (Co-op),** *Thermo Fisher Scientific Inc. (MSD)* 2023 --
 December 2023
 
-Pioneered a neural network project, applying CNNs for enhanced image
-classification pivotal to semiconductor defect analysis. Implemented and
-refined machine learning algorithms using TensorFlow and Keras, leading
-to improved diagnostic capabilities. Developed a Python script to
-automate image data collection, yielding a large-scale image repository
-that facilitated the advancement of AI model training and accuracy in
-material analysis.
+Developed CNN-based neural network for semiconductor defect
+classification using TensorFlow and Keras. Created Python automation
+script to build large-scale image repository, improving AI model
+training accuracy.
 
 **Co-founder,** *Therosafe (Startup)* 2021 -- Present
 
-As co-founder of a startup in the field of theranostics, I play a
-multifaceted role with a focus on operations. I contributed to the
-development of the company\'s concept, deliverables, and presentations,
-created visualizations to showcase the product, and applied to various
-competitions to clearly articulate the need we are solving.
+Co-founded medical device startup reducing radiation exposure in
+theranostic treatments. Developed product concept, deliverables, and
+visualizations; filed provisional patent (No. 63/442436). Advanced to
+Texas Health Catalyst finalist and received industry mentorship for
+commercialization.
 
 **Community Outreach Specialist,** *University of Texas at El Paso* 2020
 
-Experienced in developing and implementing marketing programs for
-outreach/recruitment. Assisted in curriculum and materials development.
-Evaluated program success and adjusted. Conducted program education and
-exhibit presentations.
+Developed and implemented marketing programs for recruitment and
+outreach. Created curriculum materials, evaluated program success, and
+delivered educational presentations.
 
 **Project Manager,** *US Army NETCOM* 2020
 
-Project Manager with experience leading a team of engineers to improve
-military data collection tools. Produced technical reports, organized
-processes, and evaluated evaluation methods and database UX design.
+Led engineering team to improve military data collection tools. Produced
+technical reports, organized processes, and evaluated database UX
+design.
 
-**Project Analyst,** *University of Texas at El Paso* 2018 -- 2019
+**\
+Project Analyst,** *University of Texas at El Paso* 2018 -- 2019
 
-Extracted and visualized retention rates using historical enrollment
-data. Assisted with in-person, online, and telephone inquiries for
-academic department operations. Improved the advising process for 200+
-students and mentored student staff for future data management and
-reporting.
+Extracted and visualized retention rates from enrollment data to inform
+institutional planning. Improved advising process for 200+ students and
+mentored staff on data management and reporting
 
 **College Recruiter,** Department of Engineering Education and
 Leadership 2018 -2020
 
-Experienced in leading STEM events, increasing student enrollment and
-retention. Implemented innovative sessions for K-12 students.
+Led STEM outreach events to increase student enrollment and retention.
+Designed and implemented innovative sessions for K-12 students, building
+relationships with prospective engineering majors.
 
 **Sound Engineer,** Beacon Hill Recording Studios, LLC 2018 -- 2019
 
-Experienced in microphone placement and sound recording. Verified
-signal-flow configurations and used industry-standard DAWs for editing
-and mixing. Collaborated with musicians and producers to deliver
-high-quality recordings.
+Managed microphone placement, signal flow configurations, and audio
+mixing using industry-standard DAWs. Collaborated with musicians and
+producers to deliver high-quality recordings and professional sound
+production.
 
 **Student Ambassador,** Amazon \| Riddle and Bloom 2018 -- 2019
 
-Improved brand awareness through coordinated events with 300+ student
-interactions. Developed and executed digital, experiential, and
-peer-to-peer tactics for student engagement. Collaborated with school
-organizations for growth opportunities and mutual support.
+Increased brand awareness through coordinated campus events reaching
+300+ students. Developed digital, experiential, and peer-to-peer
+engagement tactics while collaborating with school organizations for
+mutual growth.
 
 **Project Finance Engineer,** Sonora Bank 2017
 
-Experienced financial engineer with a focus on personal financial
-statement design and formatting. Shadowed bank operations and presented
-financial operations in group meetings. Improved financial operations
-for community banks.
+Designed and formatted personal financial statements for community
+banks. Shadowed banking operations and presented financial analysis in
+group meetings to improve institutional financial operations
 
 **CONFERENCE PARTICIPATION**
 
