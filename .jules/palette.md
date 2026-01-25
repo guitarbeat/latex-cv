@@ -11,3 +11,7 @@
 ## 2026-01-13 - Window Title for PDFs
 **Learning:** By default, PDF viewers display the filename (e.g., `CV.pdf`) in the window title bar, which is unhelpful and poor for accessibility. Adding `pdfdisplaydoctitle=true` to `\hypersetup` forces the viewer to use the metadata Title (e.g., "Curriculum Vitae - Name"), which is WCAG compliant and more professional.
 **Action:** Always include `pdfdisplaydoctitle=true` in `\hypersetup` configuration for LaTeX documents intended for digital distribution.
+
+## 2026-01-25 - Enhanced Mailto Links
+**Learning:** Adding query parameters like `?subject=` to `mailto:` links provides a delightful micro-UX by pre-filling context for the recipient, but requires careful escaping of `%` characters (`\%`) in LaTeX to avoid compilation errors.
+**Action:** Use `\href{mailto:email?subject=...\%20...}{email}` for contact links in CVs.
