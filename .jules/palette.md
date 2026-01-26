@@ -11,3 +11,7 @@
 ## 2026-01-13 - Window Title for PDFs
 **Learning:** By default, PDF viewers display the filename (e.g., `CV.pdf`) in the window title bar, which is unhelpful and poor for accessibility. Adding `pdfdisplaydoctitle=true` to `\hypersetup` forces the viewer to use the metadata Title (e.g., "Curriculum Vitae - Name"), which is WCAG compliant and more professional.
 **Action:** Always include `pdfdisplaydoctitle=true` in `\hypersetup` configuration for LaTeX documents intended for digital distribution.
+
+## 2026-01-26 - Clickable Citations
+**Learning:** In academic CVs, publications are often just text. Wrapping the publication title in `\href{DOI_URL}{Title}` significantly improves UX for reviewers without altering the printed layout or text content.
+**Action:** Always look for DOI or persistent URLs for publications and link the title text in LaTeX CVs.
