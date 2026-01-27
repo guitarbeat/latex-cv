@@ -25,6 +25,8 @@
 \fi
 % * Modern table package (replaces tabular/tabular*) - 2021+
 \usepackage{tabularray} % * Modern, flexible table system with better width handling
+\usepackage{tabularx}
+\usepackage{environ}
 % * Modern URL handling - better line breaking
 \usepackage{xurl} % * Improved URL breaking for long hyperlinks
 \usepackage{hyperref}
@@ -97,6 +99,17 @@
 % Bullet point configuration
 \setlist[itemize]{noitemsep, topsep=0.5ex, itemsep=0pt, leftmargin=1.25em, labelsep=0.5em}
 
+% Performance optimization: Use tabularx instead of tabularray for simple lists to speed up compilation.
+\NewEnviron{cvblock}{%
+  \noindent
+  \begin{tabularx}{\textwidth}{%
+    >{\hsize=1.5\hsize\raggedright\arraybackslash}X
+    >{\hsize=0.5\hsize\raggedleft\arraybackslash}X @{}
+  }%
+    \BODY
+  \end{tabularx}
+}
+
 % Begin document
 \begin{document}
 
@@ -160,13 +173,9 @@ Niemeier, R., N. Schnoor, \textbf{A.L. Woods}, and J.D. Rogers, ``Calibration of
 \sectionheading{Research Experience}
 
 % Graduate Student Researcher
-\noindent\begin{tblr}{
-  width=\textwidth,
-  colspec={X[3,l] X[1,r]},
-  column{2}={rightsep=0pt}
-}
+\begin{cvblock}
 \textbf{Graduate Student Researcher}, University of Texas at Austin & 2021 -- Present\\
-\end{tblr}
+\end{cvblock}
 \vspace{0.6ex}
 \textit{Department of Biomedical Engineering \;|\; Advisor: Dr. Andrew Dunn}
 \begin{itemize}
@@ -177,13 +186,9 @@ Niemeier, R., N. Schnoor, \textbf{A.L. Woods}, and J.D. Rogers, ``Calibration of
 \end{itemize}
 
 % Graduate Rotation Student (Mia Markey)
-\noindent\begin{tblr}{
-  width=\textwidth,
-  colspec={X[3,l] X[1,r]},
-  column{2}={rightsep=0pt}
-}
+\begin{cvblock}
 \textbf{Graduate Rotation Student}, University of Texas at Austin & Summer~2021\\
-\end{tblr}
+\end{cvblock}
 \vspace{0.6ex}
 \textit{Department of Biomedical Engineering \;|\; Advisor: Dr. Mia Markey}
 \begin{itemize}
@@ -193,13 +198,9 @@ Niemeier, R., N. Schnoor, \textbf{A.L. Woods}, and J.D. Rogers, ``Calibration of
 \end{itemize}
 
 % Graduate Rotation Student (Evan Wang)
-\noindent\begin{tblr}{
-  width=\textwidth,
-  colspec={X[3,l] X[1,r]},
-  column{2}={rightsep=0pt}
-}
+\begin{cvblock}
 \textbf{Graduate Rotation Student}, University of Texas at Austin & Fall~2021\\
-\end{tblr}
+\end{cvblock}
 \vspace{0.6ex}
 \textit{Department of Biomedical Engineering \;|\; Advisor: Dr. Evan Wang}
 \begin{itemize}
@@ -209,13 +210,9 @@ Niemeier, R., N. Schnoor, \textbf{A.L. Woods}, and J.D. Rogers, ``Calibration of
 \end{itemize}
 
 % Undergraduate Student Researcher (UTEP)
-\noindent\begin{tblr}{
-  width=\textwidth,
-  colspec={X[3,l] X[1,r]},
-  column{2}={rightsep=0pt}
-}
+\begin{cvblock}
 \textbf{Undergraduate Student Researcher}, University of Texas at El Paso & 2019 -- 2020\\
-\end{tblr}
+\end{cvblock}
 \vspace{0.6ex}
 \textit{CREaTE Lab \;|\; Advisor: Dr. Peter Golding}
 \begin{itemize}
@@ -225,13 +222,9 @@ Niemeier, R., N. Schnoor, \textbf{A.L. Woods}, and J.D. Rogers, ``Calibration of
 \end{itemize}
 
 % Undergraduate Student Researcher (UW-Madison ketogenic clinic)
-\noindent\begin{tblr}{
-  width=\textwidth,
-  colspec={X[3,l] X[1,r]},
-  column{2}={rightsep=0pt}
-}
+\begin{cvblock}
 \textbf{Undergraduate Student Researcher}, University of Wisconsin--Madison & Summer~2019\\
-\end{tblr}
+\end{cvblock}
 \vspace{0.6ex}
 \textit{Adult Neurology Ketogenic Diet Therapy Clinic \;|\; Advisor: Dr. Elizabeth Felton}
 \begin{itemize}
@@ -241,13 +234,9 @@ Niemeier, R., N. Schnoor, \textbf{A.L. Woods}, and J.D. Rogers, ``Calibration of
 \end{itemize}
 
 % Undergraduate Student Researcher (UW-Madison Biomedical Optics Lab)
-\noindent\begin{tblr}{
-  width=\textwidth,
-  colspec={X[3,l] X[1,r]},
-  column{2}={rightsep=0pt}
-}
+\begin{cvblock}
 \textbf{Undergraduate Student Researcher}, University of Wisconsin--Madison & Summer~2018\\
-\end{tblr}
+\end{cvblock}
 \vspace{0.6ex}
 \textit{Biomedical Optics Lab \;|\; Advisor: Dr. Jeremy Rogers}
 \begin{itemize}
