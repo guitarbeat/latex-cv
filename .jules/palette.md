@@ -15,3 +15,7 @@
 ## 2026-01-25 - Enhanced Mailto Links
 **Learning:** Adding query parameters like `?subject=` to `mailto:` links provides a delightful micro-UX by pre-filling context for the recipient, but requires careful escaping of `%` characters (`\%`) in LaTeX to avoid compilation errors.
 **Action:** Use `\href{mailto:email?subject=...\%20...}{email}` for contact links in CVs.
+
+## 2026-05-21 - Visual Scannability in Text-Heavy Lists
+**Learning:** In text-dense documents like CVs, consistent visual highlighting (bolding) of the subject's name in citation lists significantly improves scannability for recruiters. Inconsistency (bolding in one section but not another) creates cognitive friction.
+**Action:** Ensure consistent formatting of key entities (like author names) across all sections of a document to maintain visual rhythm and aid quick scanning.
