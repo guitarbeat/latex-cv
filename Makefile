@@ -11,12 +11,12 @@ all: latex
 latex: $(OUT)/latex/CV.pdf
 
 $(OUT)/latex:
-	mkdir -p $@
+	mkdir -p "$@"
 
 $(OUT)/latex/CV.pdf: $(LATEX_TEX) | $(OUT)/latex
-	MKTEXTFM=0 xelatex -output-directory=$(OUT)/latex $(LATEX_TEX)
-	if grep -q "Rerun to get" $(OUT)/latex/CV.log || grep -q "Rerun LaTeX" $(OUT)/latex/CV.log || grep -q "rerunfilecheck Warning" $(OUT)/latex/CV.log; then \
-		MKTEXTFM=0 xelatex -output-directory=$(OUT)/latex $(LATEX_TEX); \
+	MKTEXTFM=0 xelatex -output-directory="$(OUT)/latex" "$(LATEX_TEX)"
+	if grep -q "Rerun to get" "$(OUT)/latex/CV.log" || grep -q "Rerun LaTeX" "$(OUT)/latex/CV.log" || grep -q "rerunfilecheck Warning" "$(OUT)/latex/CV.log"; then \
+		MKTEXTFM=0 xelatex -output-directory="$(OUT)/latex" "$(LATEX_TEX)"; \
 	fi
 
 .PHONY: context extract validate
@@ -30,4 +30,4 @@ validate: latex
 
 .PHONY: clean
 clean:
-	rm -rf $(OUT)
+	rm -rf "$(OUT)"
