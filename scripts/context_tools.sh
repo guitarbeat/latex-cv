@@ -9,11 +9,14 @@ OUT_DIR="$ROOT_DIR/reference"
 BUILD_DIR="$ROOT_DIR/build"
 TMP_DIR="$ROOT_DIR/.context-tmp"
 
-mkdir -p "$TMP_DIR"
+mkdir -p -m 700 "$TMP_DIR"
 
 extract_from_docx() {
   if [ ! -f "$REF_DOCX" ]; then
     echo "Missing $REF_DOCX" >&2; return 1
+  fi
+  if ! command -v pandoc >/dev/null 2>&1; then
+    echo "pandoc not found" >&2; return 1
   fi
 
   if [ -f "$OUT_DIR/original.md" ] && [ -f "$OUT_DIR/original.txt" ] && \
@@ -56,6 +59,7 @@ validate_against_original() {
 
   echo "Computing unified diff vs original (normalized)"
   # Normalize whitespace lines for a lighter diff
+  shopt -s nullglob
   for f in "$TMP_DIR"/*.txt; do
     awk '{gsub(/[ \t]+$/,"",$0); print}' "$f" > "$f.norm"
   done
